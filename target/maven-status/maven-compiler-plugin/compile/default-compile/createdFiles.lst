@@ -1,0 +1,11 @@
+game\Team_.class
+game\Game.class
+game\LeagueTable.class
+game\PlayerPosition.class
+game\Bundesliga.class
+game\Matchday.class
+game\Player.class
+game\Team.class
+datastores\TeamDataStore.class
+game\Main.class
+game\TeamScore.class

@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: datastores.TeamDataStoreTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.811 s <<< FAILURE! - in datastores.TeamDataStoreTest
+addTeam  Time elapsed: 4.731 s  <<< ERROR!
+javax.persistence.PersistenceException: [PersistenceUnit: bundesliga] Unable to build Hibernate SessionFactory
+	at datastores.TeamDataStoreTest.setUp(TeamDataStoreTest.java:21)
+Caused by: org.hibernate.MappingException: Could not determine type for: java.util.List, at table: Team, for columns: [org.hibernate.mapping.Column(players)]
+	at datastores.TeamDataStoreTest.setUp(TeamDataStoreTest.java:21)
+

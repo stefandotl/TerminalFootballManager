@@ -1,0 +1,21 @@
+package game;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class MatchDayTest {
+
+    @Test
+    @DisplayName("Add game to matchday")
+    public void addGameToMatchday(){
+        MatchDay matchday = new MatchDay();
+        Team team1 = new Team("Hamburg");
+        Team team2 = new Team("dortmund");
+        Game game = new Game();
+        game.addTeams(team1, team2);
+        matchday.addGame(game);
+        assertThat(matchday.getGames().size()).isEqualTo(1);
+    }
+}

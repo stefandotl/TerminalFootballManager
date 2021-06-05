@@ -1,0 +1,9 @@
+game\BundesligaTest.class
+datastores\TeamDataStoreTest.class
+game\PlayerTest.class
+game\PlayerPositionTest.class
+game\GameTest.class
+game\TeamScoreTest.class
+game\MainTest.class
+game\LeagueTableTest.class
+game\TeamTest.class
