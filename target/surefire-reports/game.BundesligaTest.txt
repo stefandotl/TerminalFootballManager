@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: game.BundesligaTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.112 s - in game.BundesligaTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s - in game.BundesligaTest

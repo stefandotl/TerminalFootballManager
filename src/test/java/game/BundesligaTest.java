@@ -41,7 +41,7 @@ public class BundesligaTest {
         Bundesliga bundesliga = new Bundesliga();
         bundesliga.generateTeams();
 
-        assertThat(bundesliga.hasEnoughTeams()).isFalse();
+        assertThat(bundesliga.numberOfTeams()).isEqualTo(8);
     }
 
 

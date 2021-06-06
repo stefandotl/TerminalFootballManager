@@ -1,9 +1,11 @@
+game\MatchDayTest.class
 game\BundesligaTest.class
 datastores\TeamDataStoreTest.class
 game\PlayerTest.class
 game\PlayerPositionTest.class
 game\GameTest.class
 game\TeamScoreTest.class
+exceptions\NotEnoughTeamsExceptionsTest.class
 game\MainTest.class
 game\LeagueTableTest.class
 game\TeamTest.class

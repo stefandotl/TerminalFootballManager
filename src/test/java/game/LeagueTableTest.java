@@ -3,7 +3,7 @@ package game;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,6 +43,13 @@ public class LeagueTableTest {
         leagueTable.addTeam(teamScore4);
         leagueTable.addTeam(teamScore5);
         leagueTable.printTable();
+    }
+
+    @Test
+    @DisplayName("Get teams from file to league")
+    void getTeamsToLeague(){
+        LeagueTable leagueTable = new LeagueTable();
+        assertThat(leagueTable.hasTeams()).isTrue();
     }
 
 }

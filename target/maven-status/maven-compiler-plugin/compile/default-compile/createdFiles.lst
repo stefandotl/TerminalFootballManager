@@ -1,11 +1,12 @@
-game\Team_.class
 game\Game.class
+game\Team.class
+excpetions\TeamNumberNotEqualTwoException.class
+game\MatchDay.class
+game\TeamScore.class
+game\Team_.class
 game\LeagueTable.class
 game\PlayerPosition.class
 game\Bundesliga.class
-game\Matchday.class
 game\Player.class
-game\Team.class
 datastores\TeamDataStore.class
 game\Main.class
-game\TeamScore.class
