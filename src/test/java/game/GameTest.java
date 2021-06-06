@@ -104,11 +104,45 @@ public class GameTest {
 
     @Test
     @DisplayName("Get Home Team")
-    public void getHomeTeam(){
+    public void getHomeTeamFrom(){
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
         game.addTeams(kaiserslautern, dortmund);
-        assertThat(game.getHomeTeam()).isEqualTo();
+        assertThat(game.getHomeTeam()).isEqualTo(kaiserslautern);
+    }
+
+    @Test
+    @DisplayName("Get Away Team")
+    public void getAwayTeam(){
+        Team kaiserslautern = new Team("1 FC Kaisersalutern");
+        Team dortmund = new Team("Borussia Dortmund");
+        game.addTeams(kaiserslautern, dortmund);
+        assertThat(game.getAwayTeam()).isEqualTo(dortmund);
+    }
+
+    @Test
+    @DisplayName("Points to Team are given")
+    public void givePointsToTeamWithHomeTeamWins(){
+        Team kaiserslautern = new TeamScore("1 FC Kaisersalutern");
+        Team dortmund = new TeamScore("Borussia Dortmund");
+        game.addTeams(kaiserslautern, dortmund);
+        game.homeTeamScored();
+        game.givePointsToTeam();
+        assertThat(((TeamScore) kaiserslautern).getPoints()).isEqualTo(3);
+        assertThat(((TeamScore) dortmund).getPoints()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("Points to Team are given")
+    public void givePointsToTeamWithDraw(){
+        Team kaiserslautern = new TeamScore("1 FC Kaisersalutern");
+        Team dortmund = new TeamScore("Borussia Dortmund");
+        game.addTeams(kaiserslautern, dortmund);
+        game.homeTeamScored();
+        game.awayTeamScored();
+        game.givePointsToTeam();
+        assertThat(((TeamScore) dortmund).getPoints()).isEqualTo(1);
+        assertThat(((TeamScore) kaiserslautern).getPoints()).isEqualTo(1);
     }
 
 }

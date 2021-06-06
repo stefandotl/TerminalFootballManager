@@ -1,12 +1,14 @@
 package game;
 
+import excpetions.TeamNumberNotEqualTwoException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Game {
 
-    List<String> teams = new ArrayList<>();
+    List<Team> teams = new ArrayList<>();
     private int scoreHomeTeam;
     private int scoreAwayTeam;
     private boolean isRunning;
@@ -16,8 +18,8 @@ public class Game {
     }
 
     public void addTeams(Team homeTeam, Team awayTeam) {
-        teams.add(homeTeam.getName());
-        teams.add(awayTeam.getName());
+        teams.add(homeTeam);
+        teams.add(awayTeam);
     }
 
     public void homeTeamScored() {
@@ -48,10 +50,16 @@ public class Game {
         return scoreHomeTeam == scoreAwayTeam;
     }
 
-    public void start(){
-//        TODO: If game has not two teams, throw exception
-//        gameHasTwoTeams()
-        this.isRunning = true;
+    public void start() {
+        try {
+            if (gameHasTwoTeams()) {
+                this.isRunning = true;
+            } else{
+                throw new TeamNumberNotEqualTwoException();
+            }
+        } catch (TeamNumberNotEqualTwoException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isRunning() {
@@ -71,12 +79,33 @@ public class Game {
     }
 
     public void simulateRandomScore() {
+//        fixme: make normaldistributions Score
+        start();
         Random rand = new Random();
         this.scoreHomeTeam = rand.nextInt(5);
         this.scoreAwayTeam = rand.nextInt(5);
+        end();
     }
 
-    public Team getHomeTeam(int index) {
-        return this.teams.get(index);
+    public Team getHomeTeam() {
+        return this.teams.get(0);
+    }
+
+    public Team getAwayTeam() {
+        return this.teams.get(1);
+    }
+
+    public void givePointsToTeam() {
+        TeamScore homeTeam = (TeamScore) getHomeTeam();
+        TeamScore awayTeam = (TeamScore) getAwayTeam();
+
+        if (homeTeamWins()) {
+            homeTeam.add3Points();
+        } else if (awayTeamWins()) {
+            awayTeam.add3Points();
+        } else {
+            homeTeam.add1Point();
+            awayTeam.add1Point();
+        }
     }
 }

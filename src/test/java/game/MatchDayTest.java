@@ -18,4 +18,22 @@ public class MatchDayTest {
         matchday.addGame(game);
         assertThat(matchday.getGames().size()).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("Simulate Matchday")
+    public void simulateMatchDay(){
+        MatchDay matchday = new MatchDay();
+        Team team1 = new Team("Hamburg");
+        Team team2 = new Team("dortmund");
+        Team team3 = new Team("Bremen");
+        Team team4 = new Team("Schalke");
+        Game game = new Game();
+        Game game2 = new Game();
+        game.addTeams(team1, team2);
+        game2.addTeams(team3, team4);
+        matchday.addGame(game);
+        matchday.addGame(game2);
+        matchday.simulateGames();
+        assertThat(matchday.gamesHaveBeenPlayed()).isTrue();
+    }
 }

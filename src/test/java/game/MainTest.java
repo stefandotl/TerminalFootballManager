@@ -1,12 +1,11 @@
 package game;
 
-import game.Game;
-import game.Team;
+import excpetions.TeamNumberNotEqualTwoException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MainTest {
-    public static void main(String[] args){
+    public static void main(String[] args) throws TeamNumberNotEqualTwoException {
         Game game = new Game();
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");

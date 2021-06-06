@@ -12,6 +12,16 @@ public class Team {
     @Id
     public String name;
 
+    private int teamStrength;
+
+    public int getTeamStrength() {
+        return teamStrength;
+    }
+
+    public void setTeamStrength(int teamStrength) {
+        this.teamStrength = teamStrength;
+    }
+
 //    @Column(name = "PLAYERS")
     private List<Player> players = new ArrayList<>();
 
