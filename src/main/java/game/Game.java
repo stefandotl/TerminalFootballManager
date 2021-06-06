@@ -92,11 +92,11 @@ public class Game {
     }
 
     public Team getHomeTeam() {
-        return this.teams.get(0);
+        return teams.get(0);
     }
 
     public Team getAwayTeam() {
-        return this.teams.get(1);
+        return teams.get(1);
     }
 
     public void givePointsToTeam() {

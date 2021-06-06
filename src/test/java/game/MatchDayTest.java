@@ -39,4 +39,13 @@ public class MatchDayTest {
         assertThat(matchday.gamesHaveBeenPlayed()).isTrue();
     }
 
+    @Test
+    @DisplayName("Print Matchday")
+    public void printMatchday(){
+        Bundesliga bundesliga = new Bundesliga();
+        bundesliga.generateTeams();
+        var matchDay = bundesliga.generateMatches();
+        matchDay.printMatches();
+    }
+
 }

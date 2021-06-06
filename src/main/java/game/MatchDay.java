@@ -23,4 +23,13 @@ public class MatchDay {
     public boolean gamesHaveBeenPlayed() {
         return true;
     }
+
+    public void printMatches() {
+        for (Game game : games) {
+            String homeTeam = game.getHomeTeam().getName();
+            String awayTeam = game.getAwayTeam().getName();
+            System.out.printf("%s : %s \n", homeTeam, awayTeam);
+        }
+//        Stream.of(games).forEach(x -> x.getHomeTeam().getName());
+    }
 }

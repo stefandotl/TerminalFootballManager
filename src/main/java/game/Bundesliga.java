@@ -46,14 +46,13 @@ public class Bundesliga {
 //        fixme: generate matches from all teams
         int matches = teams.size()/2;
         MatchDay matchDay = new MatchDay();
+        int index = 0;
 
         for (int i=0; i<matches; i++){
             Game game = new Game();
-            for(int j = 0; j<teams.size(); j+=2){
-                game.addTeams(teams.get(j), teams.get(j+1));
-                matchDay.addGame(game);
-                break;
-            }
+            game.addTeams(teams.get(index), teams.get(index+1));
+            matchDay.addGame(game);
+            index+=2;
         }
 
         return matchDay;

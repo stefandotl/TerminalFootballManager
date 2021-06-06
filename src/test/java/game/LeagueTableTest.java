@@ -49,6 +49,8 @@ public class LeagueTableTest {
     @DisplayName("Get teams from file to league")
     void getTeamsToLeague(){
         LeagueTable leagueTable = new LeagueTable();
+        TeamScore teamScore = new TeamScore("Liverpool");
+        leagueTable.addTeam(teamScore);
         assertThat(leagueTable.hasTeams()).isTrue();
     }
 
