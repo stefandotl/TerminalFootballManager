@@ -40,9 +40,15 @@ public class BundesligaTest {
     public void generateTeams(){
         Bundesliga bundesliga = new Bundesliga();
         bundesliga.generateTeams();
-
-        assertThat(bundesliga.numberOfTeams()).isEqualTo(8);
+        assertThat(bundesliga.numberOfTeams()).isEqualTo(18);
     }
 
-
+    @Test
+    @DisplayName("Generate Game")
+    public void generateGame(){
+        Bundesliga bundesliga = new Bundesliga();
+        bundesliga.generateTeams();
+        var matchDay = bundesliga.generateMatches();
+        assertThat(matchDay.getGames().size()).isEqualTo(9);
+    }
 }

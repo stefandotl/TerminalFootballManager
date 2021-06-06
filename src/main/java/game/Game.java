@@ -17,6 +17,10 @@ public class Game {
         return this.teams.size() == 2;
     }
 
+    public void addTeam(Team team) {
+        teams.add(team);
+    }
+
     public void addTeams(Team homeTeam, Team awayTeam) {
         teams.add(homeTeam);
         teams.add(awayTeam);

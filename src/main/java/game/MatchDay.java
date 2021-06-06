@@ -17,7 +17,6 @@ public class MatchDay {
     }
 
     public void simulateGames() {
-//        fixme: either as for loop or as stream
         games.forEach(Game::simulateRandomScore);
     }
 
