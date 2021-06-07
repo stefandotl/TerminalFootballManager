@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BundesligaTest {
@@ -39,15 +41,13 @@ public class BundesligaTest {
     @DisplayName("18 Teams Generated")
     public void generateTeams(){
         Bundesliga bundesliga = new Bundesliga();
-        bundesliga.generateTeams();
-        assertThat(bundesliga.numberOfTeams()).isEqualTo(18);
+        assertThat(bundesliga.teams.size()).isEqualTo(18);
     }
 
     @Test
     @DisplayName("Generate Game")
     public void generateGame(){
         Bundesliga bundesliga = new Bundesliga();
-        bundesliga.generateTeams();
         var matchDay = bundesliga.generateMatches();
         assertThat(matchDay.getGames().size()).isEqualTo(9);
     }

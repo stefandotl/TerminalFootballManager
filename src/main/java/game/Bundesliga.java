@@ -11,6 +11,10 @@ public class Bundesliga {
     List<Team> teams = new ArrayList<>();
     MatchDay matchDay = new MatchDay();
 
+    public Bundesliga() {
+        this.teams = generateTeams();
+    }
+
     private int teamStrength;
 
     public int getTeamStrength() {
@@ -29,13 +33,14 @@ public class Bundesliga {
         return teams.size() == 18;
     }
 
-    public void generateTeams(){
+    public List<Team> generateTeams(){
         String fileName = "teams.txt";
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
             stream.forEach(teamName -> teams.add(new Team(teamName)));
         } catch (IOException e){
             e.printStackTrace();
         }
+        return teams;
     }
 
     public int numberOfTeams() {
