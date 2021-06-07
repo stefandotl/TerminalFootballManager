@@ -75,7 +75,7 @@ public class Game {
     }
 
     public void printScore() {
-        System.out.printf("%s  %s : %s  %s", teams.get(0), this.scoreHomeTeam, this.scoreAwayTeam, teams.get(1));
+        System.out.printf("%s  %s : %s  %s", teams.get(0).getName(), this.scoreHomeTeam, this.scoreAwayTeam, teams.get(1).getName());
     }
 
     public void printScoreWithoutTeams() {
