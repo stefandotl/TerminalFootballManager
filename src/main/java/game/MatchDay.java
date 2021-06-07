@@ -25,10 +25,14 @@ public class MatchDay {
     }
 
     public void printMatches() {
+//        fixme: take the formatted String from printLeagueTable
         for (Game game : games) {
-            String homeTeam = game.getHomeTeam().getName();
-            String awayTeam = game.getAwayTeam().getName();
-            System.out.printf("%s : %s \n", homeTeam, awayTeam);
+            String homeTeam = String.format("%-17s", game.getHomeTeam().getName());
+            String awayTeam = String.format("%2s", game.getAwayTeam().getName());
+            String scoreHomeTeam = String.format("%2s", game.getScoreHomeTeam());
+            String scoreAwayTeam = String.format("%-2s", game.getScoreAwayTeam());
+            System.out.printf("%s  %s : %s  %s \n", homeTeam, scoreHomeTeam,
+                    scoreAwayTeam, awayTeam);
         }
 //        Stream.of(games).forEach(x -> x.getHomeTeam().getName());
     }
