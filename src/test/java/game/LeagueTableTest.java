@@ -54,4 +54,14 @@ public class LeagueTableTest {
         assertThat(bundesliga.hasEnoughTeams()).isTrue();
     }
 
+    @Test
+    @DisplayName("Print Matchday with random Score")
+    public void getMatchdayWithRandomScore(){
+        Bundesliga bundesliga = new Bundesliga();
+        var matchDay = bundesliga.generateMatches();
+        matchDay.simulateGames();
+        List<Game> games = matchDay.getGames();
+        assertThat(games.get(0).getScoreHomeTeam()).isGreaterThanOrEqualTo(0);
+    }
+
 }

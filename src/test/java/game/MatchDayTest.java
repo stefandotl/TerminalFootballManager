@@ -3,6 +3,7 @@ package game;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,6 +46,25 @@ public class MatchDayTest {
         Bundesliga bundesliga = new Bundesliga();
         var matchDay = bundesliga.generateMatches();
         matchDay.printMatches();
+    }
+
+    @Test
+    @DisplayName("Print Matchday with random Score")
+    public void printMatchdayWithRandomScore(){
+        Bundesliga bundesliga = new Bundesliga();
+        var matchDay = bundesliga.generateMatches();
+        matchDay.simulateGames();
+        matchDay.printMatches();
+    }
+    
+    @Test
+    @DisplayName("Print Matchday with random Score")
+    public void getMatchdayWithRandomScore(){
+        Bundesliga bundesliga = new Bundesliga();
+        var matchDay = bundesliga.generateMatches();
+        matchDay.simulateGames();
+        List<Game> games = matchDay.getGames();
+        assertThat(games.get(0).getScoreHomeTeam()).isGreaterThanOrEqualTo(0);
     }
 
 }

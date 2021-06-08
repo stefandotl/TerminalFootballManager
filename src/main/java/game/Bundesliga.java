@@ -15,6 +15,12 @@ public class Bundesliga {
         this.teams = generateTeams();
     }
 
+    public Bundesliga(boolean generate) {
+        if (generate){
+            this.teams = generateTeams();
+        }
+    }
+
     private int teamStrength;
 
     public int getTeamStrength() {

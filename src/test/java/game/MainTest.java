@@ -12,10 +12,7 @@ public class MainTest {
 
         game.addTeams(kaiserslautern, dortmund);
         game.start();
-        game.homeTeamScored();
-        game.homeTeamScored();
-        game.awayTeamScored();
+        game.simulateRandomScore();
         game.end();
-        game.printScore();
     }
 }

@@ -34,6 +34,5 @@ public class MatchDay {
             System.out.printf("%s  %s : %s  %s \n", homeTeam, scoreHomeTeam,
                     scoreAwayTeam, awayTeam);
         }
-//        Stream.of(games).forEach(x -> x.getHomeTeam().getName());
     }
 }
