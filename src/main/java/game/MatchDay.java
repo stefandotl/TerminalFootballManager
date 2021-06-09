@@ -2,7 +2,6 @@ package game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class MatchDay {
 
@@ -25,12 +24,12 @@ public class MatchDay {
     }
 
     public void printMatches() {
-//        fixme: take the formatted String from printLeagueTable
+
         for (Game game : games) {
             String homeTeam = String.format("%-17s", game.getHomeTeam().getName());
             String awayTeam = String.format("%2s", game.getAwayTeam().getName());
-            String scoreHomeTeam = String.format("%2s", game.getScoreHomeTeam());
-            String scoreAwayTeam = String.format("%-2s", game.getScoreAwayTeam());
+            String scoreHomeTeam = String.format("%2s", game.getGoalsHomeTeam());
+            String scoreAwayTeam = String.format("%-2s", game.getGoalsAwayTeam());
             System.out.printf("%s  %s : %s  %s \n", homeTeam, scoreHomeTeam,
                     scoreAwayTeam, awayTeam);
         }

@@ -5,6 +5,9 @@ import game.TeamScore;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TeamScoreTest {
@@ -32,6 +35,16 @@ public class TeamScoreTest {
         TeamScore team = new TeamScore("Kaiserslautern");
         team.addGame();
         assertThat(team.getGamesPlayed()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("Added teamScore")
+    void getTeamScore(){
+        TeamScore team = new TeamScore("Kaiserslautern");
+        team.add3Points();
+        team.addGoals(5);
+        team.addGame();
+        assertThat(team.getTeamScore().get(1)).isEqualTo(5);
     }
 
 }

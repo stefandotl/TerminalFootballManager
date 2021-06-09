@@ -50,4 +50,12 @@ public class TeamTest {
         assertThat(team.hasGoalKeeper()).isFalse();
     }
 
+    @Test
+    @DisplayName("Get Team Score")
+    void getTeamScore(){
+        Player player = new Player();
+        team.addPlayer(player);
+        assertThat(team.hasGoalKeeper()).isFalse();
+    }
+
 }

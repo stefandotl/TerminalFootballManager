@@ -1,18 +1,20 @@
 package game;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.*;
 
-public class TeamScore extends Team{
+public class TeamScore{
 
+    String name;
     int gamesPlayed;
     int goalsScored;
     int goalsConceded;
     int points;
 
+    public TeamScore() {
+    }
+
     public TeamScore(String name) {
-        super.name = name;
+        this.name = name;
     }
 
     public int getGamesPlayed() {
@@ -61,5 +63,18 @@ public class TeamScore extends Team{
 
     public void addGoals(int goals) {
         this.goalsScored += goals;
+    }
+
+    public void addGoalsConceded(int goals) {
+        this.goalsConceded += goals;
+    }
+
+    public List<Integer> getTeamScore() {
+//        fixme: change list to Set?
+        return Arrays.asList(gamesPlayed, goalsScored, goalsConceded, points);
+    }
+
+    public String getName() {
+        return name;
     }
 }

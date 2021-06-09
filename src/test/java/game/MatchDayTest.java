@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -64,7 +63,7 @@ public class MatchDayTest {
         var matchDay = bundesliga.generateMatches();
         matchDay.simulateGames();
         List<Game> games = matchDay.getGames();
-        assertThat(games.get(0).getScoreHomeTeam()).isGreaterThanOrEqualTo(0);
+        assertThat(games.get(0).getGoalsHomeTeam()).isGreaterThanOrEqualTo(0);
     }
 
 }

@@ -51,4 +51,14 @@ public class BundesligaTest {
         var matchDay = bundesliga.generateMatches();
         assertThat(matchDay.getGames().size()).isEqualTo(9);
     }
+
+    @Test
+    @DisplayName("Generate Game")
+    public void printTable(){
+        Bundesliga bundesliga = new Bundesliga();
+        var matchDay = bundesliga.generateMatches();
+        matchDay.simulateGames();
+        bundesliga.printTable();
+        assertThat(matchDay.getGames().size()).isEqualTo(9);
+    }
 }

@@ -9,9 +9,13 @@ import java.util.Random;
 public class Game {
 
     List<Team> teams = new ArrayList<>();
-    private int scoreHomeTeam;
-    private int scoreAwayTeam;
+    private int goalsHomeTeam;
+    private int goalsAwayTeam;
     private boolean isRunning;
+    private TeamScore homeTeamScore;
+    private TeamScore awayTeamScore;
+    private Team homeTeam;
+    private Team awayTeam;
 
     public boolean gameHasTwoTeams() {
         return this.teams.size() == 2;
@@ -27,31 +31,31 @@ public class Game {
     }
 
     public void homeTeamScored() {
-        this.scoreHomeTeam += 1;
+        this.goalsHomeTeam += 1;
     }
 
-    public int getScoreHomeTeam() {
-        return this.scoreHomeTeam;
+    public int getGoalsHomeTeam() {
+        return this.goalsHomeTeam;
     }
 
     public void awayTeamScored() {
-        this.scoreAwayTeam += 1;
+        this.goalsAwayTeam += 1;
     }
 
-    public int getScoreAwayTeam() {
-        return this.scoreAwayTeam;
+    public int getGoalsAwayTeam() {
+        return this.goalsAwayTeam;
     }
 
     public boolean homeTeamWins() {
-        return scoreHomeTeam > scoreAwayTeam;
+        return goalsHomeTeam > goalsAwayTeam;
     }
 
     public boolean awayTeamWins() {
-        return scoreHomeTeam < scoreAwayTeam;
+        return goalsHomeTeam < goalsAwayTeam;
     }
 
     public boolean gameEndsDraw() {
-        return scoreHomeTeam == scoreAwayTeam;
+        return goalsHomeTeam == goalsAwayTeam;
     }
 
     public void start() {
@@ -75,20 +79,35 @@ public class Game {
     }
 
     public void printScore() {
-        System.out.printf("%s  %s : %s  %s", teams.get(0).getName(), this.scoreHomeTeam, this.scoreAwayTeam, teams.get(1).getName());
+        System.out.printf("%s  %s : %s  %s", teams.get(0).getName(), this.goalsHomeTeam, this.goalsAwayTeam, teams.get(1).getName());
     }
 
     public void printScoreWithoutTeams() {
-        System.out.printf("%s : %s", this.scoreHomeTeam, this.scoreAwayTeam);
+        System.out.printf("%s : %s", this.goalsHomeTeam, this.goalsAwayTeam);
     }
 
     public void simulateRandomScore() {
 //        fixme: make normaldistributions Score
+        homeTeam = teams.get(0);
+        awayTeam = teams.get(1);
         start();
         Random rand = new Random();
-        this.scoreHomeTeam = rand.nextInt(5);
-        this.scoreAwayTeam = rand.nextInt(5);
+        this.goalsHomeTeam = rand.nextInt(5);
+        this.goalsAwayTeam = rand.nextInt(5);
         end();
+        givePointsToTeam(homeTeam, awayTeam);
+        giveGoalsAndGames(homeTeam, awayTeam);
+    }
+
+    private void giveGoalsAndGames(Team homeTeam, Team awayTeam) {
+        this.homeTeamScore = homeTeam.getTeamScore();
+        this.awayTeamScore = awayTeam.getTeamScore();
+        homeTeamScore.addGame();
+        awayTeamScore.addGame();
+        homeTeamScore.addGoals(goalsHomeTeam);
+        homeTeamScore.addGoalsConceded(goalsAwayTeam);
+        awayTeamScore.addGoals(goalsAwayTeam);
+        awayTeamScore.addGoalsConceded(goalsHomeTeam);
     }
 
     public Team getHomeTeam() {
@@ -99,17 +118,17 @@ public class Game {
         return teams.get(1);
     }
 
-    public void givePointsToTeam() {
-        TeamScore homeTeam = (TeamScore) getHomeTeam();
-        TeamScore awayTeam = (TeamScore) getAwayTeam();
+    public void givePointsToTeam(Team homeTeam, Team awayTeam) {
+        this.homeTeamScore = homeTeam.getTeamScore();
+        this.awayTeamScore = awayTeam.getTeamScore();
 
         if (homeTeamWins()) {
-            homeTeam.add3Points();
+            homeTeamScore.add3Points();
         } else if (awayTeamWins()) {
-            awayTeam.add3Points();
+            awayTeamScore.add3Points();
         } else {
-            homeTeam.add1Point();
-            awayTeam.add1Point();
+            homeTeamScore.add1Point();
+            awayTeamScore.add1Point();
         }
     }
 }

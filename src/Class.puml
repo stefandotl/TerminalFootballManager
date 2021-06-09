@@ -18,7 +18,7 @@ TeamScore "n"<--"1" LeagueTable
 Player "1"-->"n" PlayerPosition
 Game "1"-->"2" TeamScore
 Main --> Bundesliga
-LeagueTable --> Matchday
+Game --> LeagueTable
 
 class Game {
 var Dauer

@@ -10,9 +10,11 @@ public class Bundesliga {
 
     List<Team> teams = new ArrayList<>();
     MatchDay matchDay = new MatchDay();
+    LeagueTable leagueTable = new LeagueTable();
 
     public Bundesliga() {
         this.teams = generateTeams();
+        this.leagueTable = generateLeagueTable();
     }
 
     public Bundesliga(boolean generate) {
@@ -49,6 +51,13 @@ public class Bundesliga {
         return teams;
     }
 
+    private LeagueTable generateLeagueTable() {
+        for(Team team : teams){
+            leagueTable.addTeam(team);
+        }
+        return leagueTable;
+    }
+
     public int numberOfTeams() {
         return teams.size();
     }
@@ -67,5 +76,9 @@ public class Bundesliga {
         }
 
         return matchDay;
+    }
+
+    public void printTable() {
+        leagueTable.printTable();
     }
 }

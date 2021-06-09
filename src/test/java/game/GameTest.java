@@ -1,7 +1,5 @@
 package game;
 
-import game.Game;
-import game.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,7 +55,7 @@ public class GameTest {
     @DisplayName("Home team scored")
     public void homeTeamScored(){
         game.homeTeamScored();
-        assertThat(game.getScoreHomeTeam()).isEqualTo(1);
+        assertThat(game.getGoalsHomeTeam()).isEqualTo(1);
     }
 
     @Test
@@ -66,7 +64,7 @@ public class GameTest {
         game.awayTeamScored();
         game.awayTeamScored();
         game.awayTeamScored();
-        assertThat(game.getScoreAwayTeam()).isEqualTo(3);
+        assertThat(game.getGoalsAwayTeam()).isEqualTo(3);
     }
 
     @Test
@@ -99,7 +97,7 @@ public class GameTest {
     @DisplayName("Game has been simulated")
     public void simulateGame(){
         game.simulateRandomScore();
-        assertThat(game.getScoreHomeTeam()).isGreaterThanOrEqualTo(0);
+        assertThat(game.getGoalsHomeTeam()).isGreaterThanOrEqualTo(0);
     }
 
     @Test
@@ -123,26 +121,39 @@ public class GameTest {
     @Test
     @DisplayName("Points to Team are given")
     public void givePointsToTeamWithHomeTeamWins(){
-        Team kaiserslautern = new TeamScore("1 FC Kaisersalutern");
-        Team dortmund = new TeamScore("Borussia Dortmund");
+        Team kaiserslautern = new Team("1 FC Kaisersalutern");
+        Team dortmund = new Team("Borussia Dortmund");
         game.addTeams(kaiserslautern, dortmund);
         game.homeTeamScored();
-        game.givePointsToTeam();
-        assertThat(((TeamScore) kaiserslautern).getPoints()).isEqualTo(3);
-        assertThat(((TeamScore) dortmund).getPoints()).isEqualTo(0);
+        game.givePointsToTeam(kaiserslautern, dortmund);
+        assertThat(kaiserslautern.getTeamScore().getPoints()).isEqualTo(3);
+        assertThat(dortmund.getTeamScore().getPoints()).isEqualTo(0);
     }
 
     @Test
     @DisplayName("Points to Team are given")
     public void givePointsToTeamWithDraw(){
-        Team kaiserslautern = new TeamScore("1 FC Kaisersalutern");
-        Team dortmund = new TeamScore("Borussia Dortmund");
+        Team kaiserslautern = new Team("1 FC Kaisersalutern");
+        Team dortmund = new Team("Borussia Dortmund");
         game.addTeams(kaiserslautern, dortmund);
         game.homeTeamScored();
         game.awayTeamScored();
-        game.givePointsToTeam();
-        assertThat(((TeamScore) dortmund).getPoints()).isEqualTo(1);
-        assertThat(((TeamScore) kaiserslautern).getPoints()).isEqualTo(1);
+        game.givePointsToTeam(kaiserslautern, dortmund);
+        assertThat(kaiserslautern.getTeamScore().getPoints()).isEqualTo(1);
+        assertThat(dortmund.getTeamScore().getPoints()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("Points to Team are given")
+    public void givePointsToTeamWithSimulatedGame(){
+        Team kaiserslautern = new Team("1 FC Kaisersalutern");
+        Team dortmund = new Team("Borussia Dortmund");
+        game.addTeams(kaiserslautern, dortmund);
+        game.homeTeamScored();
+        game.awayTeamScored();
+        game.givePointsToTeam(kaiserslautern, dortmund);
+        assertThat(kaiserslautern.getTeamScore().getPoints()).isEqualTo(1);
+        assertThat(dortmund.getTeamScore().getPoints()).isEqualTo(1);
     }
 
 }

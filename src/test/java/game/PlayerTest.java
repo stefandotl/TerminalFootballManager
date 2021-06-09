@@ -25,7 +25,6 @@ public class PlayerTest {
     @DisplayName("Position of Player is Goalkeeper")
     public void positionOfPlayer(){
         Player player = new Player("Christiano Ronaldo");
-//        TODO: Edit PlayerPositionClass
 //        player.setPosition(gk);
 
         assertThat(player.hasName()).isTrue();

@@ -3,14 +3,13 @@ package game;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-@Entity
 public class Team {
 
-    @Id
     public String name;
+
+    private TeamScore teamsScore;
 
     private int teamStrength;
 
@@ -27,10 +26,12 @@ public class Team {
 
     public Team() {
         name = "";
+        this.teamsScore = new TeamScore();
     }
 
     public Team(String teamName) {
         this.name = teamName;
+        this.teamsScore = new TeamScore();
     }
 
     public String getName() {
@@ -65,5 +66,9 @@ public class Team {
     public boolean hasGoalKeeper() {
 //        TODO: check if game.Team has a Goalkeeper
         return false;
+    }
+
+    public TeamScore getTeamScore() {
+        return teamsScore;
     }
 }
