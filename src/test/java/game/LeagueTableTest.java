@@ -45,14 +45,24 @@ public class LeagueTableTest {
 //        leagueTable.printTable();
     }
 
-//    @Test
-//    @DisplayName("Get teams from file to league")
-//    void getTeamsToLeague(){
-//        LeagueTable leagueTable = new LeagueTable();
-//        Bundesliga bundesliga = new Bundesliga();
-//        var matchDay = bundesliga.generateMatches();
-//        matchDay.simulateGames();
-//        leagueTable.printTable();
-//        assertThat(bundesliga.hasEnoughTeams()).isTrue();
-//    }
+    @Test
+    @DisplayName("Get teams from file to league")
+    void getTeamsToLeague(){
+        LeagueTable leagueTable = new LeagueTable();
+        Bundesliga bundesliga = new Bundesliga();
+        var matchDay = bundesliga.generateMatches();
+        matchDay.simulateGames();
+        leagueTable.printTable();
+        assertThat(bundesliga.hasEnoughTeams()).isTrue();
+    }
+
+    @Test
+    @DisplayName("Sort the Table")
+    public void printTable(){
+        Bundesliga bundesliga = new Bundesliga();
+        var matchDay = bundesliga.generateMatches();
+        matchDay.simulateGames();
+        bundesliga.printTable();
+        assertThat(matchDay.getGames().size()).isEqualTo(9);
+    }
 }

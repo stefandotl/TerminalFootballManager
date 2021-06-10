@@ -71,4 +71,16 @@ public class Team {
     public TeamScore getTeamScore() {
         return teamsScore;
     }
+
+    public int getPoints() {
+        return teamsScore.points;
+    }
+
+    public int getGoals() {
+        return teamsScore.goalsScored;
+    }
+
+    public int getGoalDiffrence() {
+        return teamsScore.goalsScored - teamsScore.goalsConceded;
+    }
 }
