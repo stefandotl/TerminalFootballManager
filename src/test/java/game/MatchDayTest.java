@@ -44,7 +44,7 @@ public class MatchDayTest {
     public void printMatchday(){
         Bundesliga bundesliga = new Bundesliga();
         var matchDay = bundesliga.generateMatches();
-        matchDay.printMatches();
+        matchDay.printMatchResults();
     }
 
     @Test
@@ -53,7 +53,7 @@ public class MatchDayTest {
         Bundesliga bundesliga = new Bundesliga();
         var matchDay = bundesliga.generateMatches();
         matchDay.simulateGames();
-        matchDay.printMatches();
+        matchDay.printMatchResults();
     }
     
     @Test

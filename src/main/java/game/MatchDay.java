@@ -23,7 +23,7 @@ public class MatchDay {
         return true;
     }
 
-    public void printMatches() {
+    public void printMatchResults() {
 
         for (Game game : games) {
             String homeTeam = String.format("%-17s", game.getHomeTeam().getName());

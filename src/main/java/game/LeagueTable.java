@@ -43,7 +43,8 @@ public class LeagueTable {
         Comparator<Team> goalDiffrenceComparator = Comparator.comparing(Team::getGoalDiffrence);
         Comparator<Team> goalsComparator = Comparator.comparing(Team::getGoals);
 
-        Comparator<Team> allComparator = pointsComparator.thenComparing(goalDiffrenceComparator).thenComparing(goalsComparator);
+        Comparator<Team> allComparator = pointsComparator.thenComparing(goalDiffrenceComparator)
+                                                        .thenComparing(goalsComparator);
 
         List<Team> sortedTable = table.stream()
                 .sorted(allComparator.reversed())

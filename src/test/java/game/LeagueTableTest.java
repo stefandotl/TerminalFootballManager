@@ -62,7 +62,20 @@ public class LeagueTableTest {
         Bundesliga bundesliga = new Bundesliga();
         var matchDay = bundesliga.generateMatches();
         matchDay.simulateGames();
+        matchDay.printMatchResults();
+        System.out.println("-----------------------------------");
+        System.out.println("-----------------------------------");
+        System.out.println("-----------------------------------");
         bundesliga.printTable();
-        assertThat(matchDay.getGames().size()).isEqualTo(9);
+        System.out.println("-----------------------------------");
+        System.out.println("-----------------------------------");
+        System.out.println("-----------------------------------");
+        var matchDay2 = bundesliga.generateMatches();
+        matchDay2.simulateGames();
+        matchDay2.printMatchResults();
+        System.out.println("-----------------------------------");
+        System.out.println("-----------------------------------");
+        System.out.println("-----------------------------------");
+        bundesliga.printTable();
     }
 }
