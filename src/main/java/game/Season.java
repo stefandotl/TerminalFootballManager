@@ -106,8 +106,8 @@ public class Season {
         return matchDay;
     }
 
-    public MatchDay getAllMatchdays() {
-        return (MatchDay) ListMatchDays;
+    public List<MatchDay> getAllMatchdays() {
+        return ListMatchDays;
     }
 
 }

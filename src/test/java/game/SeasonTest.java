@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SeasonTest {
@@ -63,7 +65,12 @@ public class SeasonTest {
     public void generateMatchday(){
         Season season = new Season();
         season.generateMatchdays();
-        season.g
-        assertThat(season.getListMatchDays().size()).isEqualTo(34);
+        List<MatchDay> matchDayList = season.getAllMatchdays();
+        for (MatchDay matchDay : matchDayList){
+            matchDay.simulateGames();
+            matchDay.printMatchResults();
+            System.out.println("--------------");
+        }
+//        assertThat(season.getListMatchDays().size()).isEqualTo(34);
     }
 }
