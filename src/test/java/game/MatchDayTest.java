@@ -43,7 +43,7 @@ public class MatchDayTest {
     @DisplayName("Print Matchday")
     public void printMatchday(){
         Season season = new Season();
-        var matchDay = season.getMatchday();
+        var matchDay = season.getMatchday(0);
         matchDay.printMatchResults();
     }
 
@@ -51,7 +51,7 @@ public class MatchDayTest {
     @DisplayName("Print Matchday with random Score")
     public void printMatchdayWithRandomScore(){
         Season season = new Season();
-        var matchDay = season.getMatchday();
+        var matchDay = season.getMatchday(0);
         matchDay.simulateGames();
         matchDay.printMatchResults();
     }
@@ -60,7 +60,7 @@ public class MatchDayTest {
     @DisplayName("Print Matchday with random Score")
     public void getMatchdayWithRandomScore(){
         Season season = new Season();
-        var matchDay = season.getMatchday();
+        var matchDay = season.getMatchday(0);
         matchDay.simulateGames();
         List<Game> games = matchDay.getGames();
         assertThat(games.get(0).getGoalsHomeTeam()).isGreaterThanOrEqualTo(0);

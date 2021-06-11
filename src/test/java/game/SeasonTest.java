@@ -44,7 +44,7 @@ public class SeasonTest {
     @DisplayName("Generate Game")
     public void generateGame(){
         Season season = new Season();
-        var matchDay = season.getMatchday();
+        var matchDay = season.getMatchday(0);
         assertThat(matchDay.getGames().size()).isEqualTo(9);
     }
 
@@ -52,7 +52,7 @@ public class SeasonTest {
     @DisplayName("print Table")
     public void printTable(){
         Season season = new Season();
-        var matchDay = season.getMatchday();
+        var matchDay = season.getMatchday(0);
         matchDay.simulateGames();
         season.printTable();
         assertThat(matchDay.getGames().size()).isEqualTo(9);
@@ -63,6 +63,7 @@ public class SeasonTest {
     public void generateMatchday(){
         Season season = new Season();
         season.generateMatchdays();
+        season.g
         assertThat(season.getListMatchDays().size()).isEqualTo(34);
     }
 }

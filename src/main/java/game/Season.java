@@ -100,21 +100,14 @@ public class Season {
         return matchDay;
     }
 
-    public MatchDay getMatchday() {
-        /*todo: add game to season and check if game and if its the same when host and guest swaps, first leg/second leg,
-         *  if if team has played against an oppponent ones -> after that => second leg! */
-        int matches = teams.size() / 2;
-        MatchDay matchDay = new MatchDay();
-        int index = 0;
-
-        for (int i = 0; i < matches; i++) {
-            Game game = new Game();
-            game.addTeams(teams.get(index), teams.get(index + 1));
-            matchDay.addGame(game);
-            index += 2;
-        }
+    public MatchDay getMatchday(int i) {
+        var matchDay = this.ListMatchDays.get(i);
 
         return matchDay;
+    }
+
+    public MatchDay getAllMatchdays() {
+        return (MatchDay) ListMatchDays;
     }
 
 }
