@@ -3,7 +3,7 @@
              version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-    <persistence-unit name="bundesliga">
+    <persistence-unit name="season">
 <!--        <class>game.Team</class>-->
 <!--        <class>game.Player</class>-->
         <properties>

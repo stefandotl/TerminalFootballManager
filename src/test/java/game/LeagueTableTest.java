@@ -49,33 +49,33 @@ public class LeagueTableTest {
     @DisplayName("Get teams from file to league")
     void getTeamsToLeague(){
         LeagueTable leagueTable = new LeagueTable();
-        Bundesliga bundesliga = new Bundesliga();
-        var matchDay = bundesliga.generateMatches();
+        Season season = new Season();
+        var matchDay = season.getMatchday();
         matchDay.simulateGames();
         leagueTable.printTable();
-        assertThat(bundesliga.hasEnoughTeams()).isTrue();
+        assertThat(season.hasEnoughTeams()).isTrue();
     }
 
     @Test
     @DisplayName("Sort the Table")
     public void printTable(){
-        Bundesliga bundesliga = new Bundesliga();
-        var matchDay = bundesliga.generateMatches();
+        Season season = new Season();
+        var matchDay = season.getMatchday();
         matchDay.simulateGames();
         matchDay.printMatchResults();
         System.out.println("-----------------------------------");
         System.out.println("-----------------------------------");
         System.out.println("-----------------------------------");
-        bundesliga.printTable();
+        season.printTable();
         System.out.println("-----------------------------------");
         System.out.println("-----------------------------------");
         System.out.println("-----------------------------------");
-        var matchDay2 = bundesliga.generateMatches();
+        var matchDay2 = season.getMatchday();
         matchDay2.simulateGames();
         matchDay2.printMatchResults();
         System.out.println("-----------------------------------");
         System.out.println("-----------------------------------");
         System.out.println("-----------------------------------");
-        bundesliga.printTable();
+        season.printTable();
     }
 }

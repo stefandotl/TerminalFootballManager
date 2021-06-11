@@ -22,7 +22,6 @@ public class LeagueTable {
     }
 
     public void printTable() {
-//        TODO: Sort with points!
         this.table = sortTable();
         for (Team team : table){
             String teamName = String.format("%-17s", team.getName());
@@ -37,7 +36,6 @@ public class LeagueTable {
     }
 
     public List<Team> sortTable(){
-//        Don't change the Sorting ORDER!!!!!!!
 
         Comparator<Team> pointsComparator = Comparator.comparing(Team::getPoints);
         Comparator<Team> goalDiffrenceComparator = Comparator.comparing(Team::getGoalDiffrence);

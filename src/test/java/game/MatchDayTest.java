@@ -42,16 +42,16 @@ public class MatchDayTest {
     @Test
     @DisplayName("Print Matchday")
     public void printMatchday(){
-        Bundesliga bundesliga = new Bundesliga();
-        var matchDay = bundesliga.generateMatches();
+        Season season = new Season();
+        var matchDay = season.getMatchday();
         matchDay.printMatchResults();
     }
 
     @Test
     @DisplayName("Print Matchday with random Score")
     public void printMatchdayWithRandomScore(){
-        Bundesliga bundesliga = new Bundesliga();
-        var matchDay = bundesliga.generateMatches();
+        Season season = new Season();
+        var matchDay = season.getMatchday();
         matchDay.simulateGames();
         matchDay.printMatchResults();
     }
@@ -59,8 +59,8 @@ public class MatchDayTest {
     @Test
     @DisplayName("Print Matchday with random Score")
     public void getMatchdayWithRandomScore(){
-        Bundesliga bundesliga = new Bundesliga();
-        var matchDay = bundesliga.generateMatches();
+        Season season = new Season();
+        var matchDay = season.getMatchday();
         matchDay.simulateGames();
         List<Game> games = matchDay.getGames();
         assertThat(games.get(0).getGoalsHomeTeam()).isGreaterThanOrEqualTo(0);

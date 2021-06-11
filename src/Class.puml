@@ -2,14 +2,14 @@
 'https://plantuml.com/class-diagram
 
 class Main
-class Bundesliga
+class Season
 class Game
 class Team
 class TeamScore
 
-Bundesliga "1"-->"1" Team
-Bundesliga --> LeagueTable
-Bundesliga --> Matchday
+Season "1"-->"1" Team
+Season --> LeagueTable
+Season --> Matchday
 Matchday --> Game
 Team "1"-->"n" Player
 Team "1"-->"1" TeamScore
@@ -17,7 +17,7 @@ TeamScore "n"<--"1" LeagueTable
 'LeagueTable "1"<--"n" TeamScore
 Player "1"-->"n" PlayerPosition
 Game "1"-->"2" TeamScore
-Main --> Bundesliga
+Main --> Season
 Game --> LeagueTable
 
 class Game {
