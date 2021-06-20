@@ -8,7 +8,7 @@ public class MatchDay {
     private List<Game> games = new ArrayList<>();
 
     public void addGame(Game game) {
-        this.games.add(game);
+        games.add(game);
     }
 
     public List<Game> getGames() {

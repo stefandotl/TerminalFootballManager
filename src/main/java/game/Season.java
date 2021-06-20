@@ -1,9 +1,14 @@
 package game;
 
+import excpetions.ToManyTeamsException;
+import org.apache.logging.slf4j.Log4jLogger;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class Season {
@@ -11,16 +16,27 @@ public class Season {
     List<Team> teams = new ArrayList<>();
     MatchDay matchDay = new MatchDay();
     LeagueTable leagueTable = new LeagueTable();
-    List<MatchDay> ListMatchDays = new ArrayList<>();
+    List<MatchDay> listMatchDays = new ArrayList<>();
+    List<Integer> playedGamesTeamIndizes = new ArrayList<>();
+
+    public static void log(Level level, String msg){
+        // Create a Logger
+        Logger logger = Logger.getLogger(Season.class.getName());
+    }
 
     public Season() {
         this.teams = generateTeams();
+        generateMatchdays();
         this.leagueTable = generateLeagueTable();
     }
 
     public Season(boolean generate) {
-        if (generate) {
+        if(generate == true){
             this.teams = generateTeams();
+            generateMatchdays();
+            this.leagueTable = generateLeagueTable();
+        } else {
+            Logger.getLogger(Season.class.getName()).info("No teams will be generated");
         }
     }
 
@@ -35,11 +51,11 @@ public class Season {
     }
 
     public List<MatchDay> getListMatchDays() {
-        return ListMatchDays;
+        return listMatchDays;
     }
 
     public void setListMatchDays(List<MatchDay> listMatchDays) {
-        ListMatchDays = listMatchDays;
+        this.listMatchDays = listMatchDays;
     }
 
     public void addTeam(Team team) {
@@ -76,38 +92,45 @@ public class Season {
         leagueTable.printTable();
     }
 
-    public void generateMatchdays() {
+    public void generateMatchdays(){
         int matches = (teams.size() - 1)*2;
 
         for (int i=0; i<matches; i++){
             MatchDay matchDay = generateMatches(i);
-            this.ListMatchDays.add(matchDay);
+            this.listMatchDays.add(matchDay);
         }
     }
 
-    private MatchDay generateMatches(int matchDayNumber) {
+    private MatchDay generateMatches(int matchDayNumber){
+//        fixme: games are not randomly
         MatchDay matchDay = new MatchDay();
         int matches = teams.size() / 2;
-        int indexHome = matchDayNumber;
-        int indexAway = matchDayNumber+1;
+        int index = matchDayNumber;
         for (int i = 0; i < matches; i++) {
             Game game = new Game();
-            game.addTeams(teams.get(indexHome % 17), teams.get(indexAway % 17));
+            game.addTeams(teams.get(index % 17), teams.get((index + 1) % 17));
             matchDay.addGame(game);
-            indexHome += 2;
-            indexAway += 2;
+            index += 2;
         }
         return matchDay;
     }
 
+    private void generateMatchesForTeams() {
+        for (Team team: teams){
+            for (int i=0; i<17; i++){
+//            fixme: define array size
+            }
+        }
+    }
+
     public MatchDay getMatchday(int i) {
-        var matchDay = this.ListMatchDays.get(i);
+        var matchDay = this.listMatchDays.get(i);
 
         return matchDay;
     }
 
     public List<MatchDay> getAllMatchdays() {
-        return ListMatchDays;
+        return listMatchDays;
     }
 
 }

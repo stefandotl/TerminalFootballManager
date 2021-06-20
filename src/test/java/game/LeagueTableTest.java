@@ -1,5 +1,6 @@
 package game;
 
+import excpetions.ToManyTeamsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,7 @@ public class LeagueTableTest {
 
     @Test
     @DisplayName("Get teams from file to league")
-    void getTeamsToLeague(){
+    void getTeamsToLeague() {
         LeagueTable leagueTable = new LeagueTable();
         Season season = new Season();
         var matchDay = season.getMatchday(0);
@@ -58,7 +59,7 @@ public class LeagueTableTest {
 
     @Test
     @DisplayName("Sort the Table")
-    public void printTable(){
+    public void printTable() {
         Season season = new Season();
         var matchDay = season.getMatchday(0);
         matchDay.simulateGames();

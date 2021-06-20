@@ -1,5 +1,6 @@
 package exceptions;
 
+import excpetions.ToManyTeamsException;
 import game.Game;
 import game.Team;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +23,7 @@ public class NotEnoughTeamsExceptionsTest {
 
     @Test
     @DisplayName("NotEnoughTeamsExceptions")
-    public void notEnoughTeamsExceptionWontBeThrown() {
+    public void notEnoughTeamsExceptionWontBeThrown() throws ToManyTeamsException {
 
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");

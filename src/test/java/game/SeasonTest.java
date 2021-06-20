@@ -1,5 +1,6 @@
 package game;
 
+import excpetions.ToManyTeamsException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ public class SeasonTest {
     Season season;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         this.season = new Season();
     }
 
@@ -29,22 +30,23 @@ public class SeasonTest {
     @DisplayName("League has not enough Teams")
     public void notEnoughTeams(){
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
-        season.addTeam(kaiserslautern);
-        season.addTeam(kaiserslautern);
+        Season season1 = new Season(false);
+        season1.addTeam(kaiserslautern);
+        season1.addTeam(kaiserslautern);
 
-        assertThat(season.hasEnoughTeams()).isFalse();
+        assertThat(season1.hasEnoughTeams()).isFalse();
     }
 
     @Test
     @DisplayName("18 Teams Generated")
-    public void generateTeams(){
+    public void generateTeams() {
         Season season = new Season();
         assertThat(season.teams.size()).isEqualTo(18);
     }
 
     @Test
     @DisplayName("Generate Game")
-    public void generateGame(){
+    public void generateGame() {
         Season season = new Season();
         var matchDay = season.getMatchday(0);
         assertThat(matchDay.getGames().size()).isEqualTo(9);
@@ -52,7 +54,7 @@ public class SeasonTest {
 
     @Test
     @DisplayName("print Table")
-    public void printTable(){
+    public void printTable() {
         Season season = new Season();
         var matchDay = season.getMatchday(0);
         matchDay.simulateGames();
@@ -62,14 +64,16 @@ public class SeasonTest {
 
     @Test
     @DisplayName("Generate Matchday")
-    public void generateMatchday(){
+    public void generateMatchday() {
         Season season = new Season();
         season.generateMatchdays();
         List<MatchDay> matchDayList = season.getAllMatchdays();
+        int matchdayIndex = 1;
         for (MatchDay matchDay : matchDayList){
             matchDay.simulateGames();
+            System.out.printf("-----" + matchdayIndex +"-------\n");
             matchDay.printMatchResults();
-            System.out.println("--------------");
+            matchdayIndex++;
         }
 //        assertThat(season.getListMatchDays().size()).isEqualTo(34);
     }

@@ -1,5 +1,6 @@
 package game;
 
+import excpetions.ToManyTeamsException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ public class MatchDayTest {
 
     @Test
     @DisplayName("Add game to matchday")
-    public void addGameToMatchday(){
+    public void addGameToMatchday() {
         MatchDay matchday = new MatchDay();
         Team team1 = new Team("Hamburg");
         Team team2 = new Team("dortmund");
@@ -23,7 +24,7 @@ public class MatchDayTest {
 
     @Test
     @DisplayName("Simulate Matchday")
-    public void simulateMatchDay(){
+    public void simulateMatchDay() {
         MatchDay matchday = new MatchDay();
         Team team1 = new Team("Hamburg");
         Team team2 = new Team("dortmund");
@@ -41,7 +42,7 @@ public class MatchDayTest {
 
     @Test
     @DisplayName("Print Matchday")
-    public void printMatchday(){
+    public void printMatchday() {
         Season season = new Season();
         var matchDay = season.getMatchday(0);
         matchDay.printMatchResults();
@@ -49,7 +50,7 @@ public class MatchDayTest {
 
     @Test
     @DisplayName("Print Matchday with random Score")
-    public void printMatchdayWithRandomScore(){
+    public void printMatchdayWithRandomScore() {
         Season season = new Season();
         var matchDay = season.getMatchday(0);
         matchDay.simulateGames();
@@ -58,7 +59,7 @@ public class MatchDayTest {
     
     @Test
     @DisplayName("Print Matchday with random Score")
-    public void getMatchdayWithRandomScore(){
+    public void getMatchdayWithRandomScore() {
         Season season = new Season();
         var matchDay = season.getMatchday(0);
         matchDay.simulateGames();

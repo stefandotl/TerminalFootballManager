@@ -1,10 +1,17 @@
 package game;
 
+import excpetions.NotEnoughTeamsException;
+import excpetions.TeamAlreadyExistException;
+import excpetions.ToManyTeamsException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
 
@@ -29,19 +36,19 @@ public class GameTest {
 
     @Test
     @DisplayName("Game has started")
-    public void startGame(){
+    public void startGame() {
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
 
-        assertThat(game.isRunning()).isFalse();
         game.addTeams(kaiserslautern, dortmund);
+        assertThat(game.isRunning()).isFalse();
         game.start();
         assertThat(game.isRunning()).isTrue();
     }
 
     @Test
     @DisplayName("Game has ended")
-    public void endGame(){
+    public void endGame() {
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
         game.addTeams(kaiserslautern, dortmund);
@@ -95,14 +102,15 @@ public class GameTest {
 
     @Test
     @DisplayName("Game has been simulated")
-    public void simulateGame(){
+    public void simulateGame() {
+        game.addTeams(new Team(), new Team());
         game.simulateRandomScore();
         assertThat(game.getGoalsHomeTeam()).isGreaterThanOrEqualTo(0);
     }
 
     @Test
     @DisplayName("Get Home Team")
-    public void getHomeTeamFrom(){
+    public void getHomeTeamFrom() {
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
         game.addTeams(kaiserslautern, dortmund);
@@ -111,7 +119,7 @@ public class GameTest {
 
     @Test
     @DisplayName("Get Away Team")
-    public void getAwayTeam(){
+    public void getAwayTeam() {
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
         game.addTeams(kaiserslautern, dortmund);
@@ -120,7 +128,7 @@ public class GameTest {
 
     @Test
     @DisplayName("Points to Team are given")
-    public void givePointsToTeamWithHomeTeamWins(){
+    public void givePointsToTeamWithHomeTeamWins() {
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
         game.addTeams(kaiserslautern, dortmund);
@@ -132,7 +140,7 @@ public class GameTest {
 
     @Test
     @DisplayName("Points to Team are given")
-    public void givePointsToTeamWithDraw(){
+    public void givePointsToTeamWithDraw() {
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
         game.addTeams(kaiserslautern, dortmund);
@@ -145,7 +153,7 @@ public class GameTest {
 
     @Test
     @DisplayName("Points to Team are given")
-    public void givePointsToTeamWithSimulatedGame(){
+    public void givePointsToTeamWithSimulatedGame() {
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
         game.addTeams(kaiserslautern, dortmund);
@@ -154,6 +162,37 @@ public class GameTest {
         game.givePointsToTeam(kaiserslautern, dortmund);
         assertThat(kaiserslautern.getTeamScore().getPoints()).isEqualTo(1);
         assertThat(dortmund.getTeamScore().getPoints()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("Get Home Team is Null")
+    public void getHomeTeam(){
+        Game game = new Game();
+        assertThat(game.getHomeTeam()).isEqualTo(null);
+    }
+
+    @Test()
+    @DisplayName("Cant add more then two teams and throw excpetion")
+    public void cantAddMoreThanTwoTeamsToAGame(){
+        assertThrows(ToManyTeamsException.class, () -> {
+            Game game = new Game();
+            Team kaiserslautern = new Team("1 FC Kaisersalutern");
+            Team dortmund = new Team("Borussia Dortmund");
+            game.addTeam(kaiserslautern);
+            game.addTeam(dortmund);
+            game.addTeam(kaiserslautern);
+        });
+    }
+
+    @Test
+    public void addHomeAndAwayTeam() {
+        Game game = new Game();
+        Team kaiserslautern = new Team("1 FC Kaisersalutern");
+        Team dortmund = new Team("Borussia Dortmund");
+        game.addHomeTeam(kaiserslautern);
+        assertThat(game.getHomeTeam()).isEqualTo(kaiserslautern);
+        game.addAwayTeam(dortmund);
+        assertThat(game.getAwayTeam()).isEqualTo(dortmund);
     }
 
 }
