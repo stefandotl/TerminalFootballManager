@@ -1,16 +1,12 @@
 package game;
 
-import excpetions.NotEnoughTeamsException;
-import excpetions.TeamAlreadyExistException;
 import excpetions.ToManyTeamsException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {

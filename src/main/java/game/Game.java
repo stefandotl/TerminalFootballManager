@@ -1,9 +1,7 @@
 package game;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import excpetions.NotEnoughTeamsException;
-import excpetions.TeamAlreadyExistException;
+import excpetions.TeamAlreadyExistsException;
 import excpetions.ToManyTeamsException;
 
 import java.util.Arrays;
@@ -34,9 +32,9 @@ public class Game {
     public boolean gameHasTwoTeams() {
         try {
             if (homeTeam == awayTeam){
-                throw new TeamAlreadyExistException();
+                throw new TeamAlreadyExistsException();
             }
-        } catch (TeamAlreadyExistException e) {
+        } catch (TeamAlreadyExistsException e) {
             e.printStackTrace();
         }
         return teams.get(0) != null && teams.get(1) != null;
@@ -47,6 +45,16 @@ public class Game {
     }
 
     public void addTeam(Team team) throws ToManyTeamsException{
+        if (teams.get(0) == null) {
+            teams.add(team);
+        } else if (teams.get(1) == null) {
+            teams.add(team);
+        } else {
+            throw new ToManyTeamsException();
+        }
+    }
+
+    public void setTeam(Team team) throws ToManyTeamsException{
         if (teams.get(0) == null) {
             teams.set(0, team);
         } else if (teams.get(1) == null) {
@@ -61,17 +69,30 @@ public class Game {
             if (teams.get(0) != null || teams.get(1) != null) {
                 throw new ToManyTeamsException();
             } else if (homeTeam == awayTeam){
-                throw new TeamAlreadyExistException();
+                throw new TeamAlreadyExistsException();
             } else {
                 this.homeTeam = homeTeam;
                 this.awayTeam = awayTeam;
-                teams.set(0, homeTeam);
-                teams.set(1, awayTeam);
+                teams.add(homeTeam);
+                teams.add(awayTeam);
             }
-        } catch (ToManyTeamsException | TeamAlreadyExistException e){
+        } catch (ToManyTeamsException | TeamAlreadyExistsException e){
             e.printStackTrace();
         }
 
+    }
+
+    public void setTeams(Team homeTeam, Team awayTeam) throws ToManyTeamsException, TeamAlreadyExistsException {
+        if (teams.get(0) != null || teams.get(1) != null) {
+            throw new ToManyTeamsException();
+        } else if (homeTeam == awayTeam){
+            throw new TeamAlreadyExistsException();
+        } else {
+            this.homeTeam = homeTeam;
+            this.awayTeam = awayTeam;
+            teams.set(0, homeTeam);
+            teams.set(1, awayTeam);
+        }
     }
 
     public void homeTeamScored() {
@@ -182,9 +203,9 @@ public class Game {
                 this.homeTeam = team;
                 teams.set(0, team);
             } else {
-                throw new TeamAlreadyExistException();
+                throw new TeamAlreadyExistsException();
             }
-        } catch (TeamAlreadyExistException e) {
+        } catch (TeamAlreadyExistsException e) {
             e.printStackTrace();
         }
     }
@@ -200,9 +221,9 @@ public class Game {
                 this.awayTeam = team;
                 teams.set(1, team);
             } else {
-                throw new TeamAlreadyExistException();
+                throw new TeamAlreadyExistsException();
             }
-        } catch (TeamAlreadyExistException e) {
+        } catch (TeamAlreadyExistsException e) {
             e.printStackTrace();
         }
     }

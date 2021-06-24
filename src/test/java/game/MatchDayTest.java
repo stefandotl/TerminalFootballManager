@@ -1,12 +1,14 @@
 package game;
 
-import excpetions.ToManyTeamsException;
+import excpetions.GameAlreadyExistsException;
+import excpetions.TeamAlreadyExistsException;
+
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class MatchDayTest {
 
@@ -20,6 +22,13 @@ public class MatchDayTest {
         game.addTeams(team1, team2);
         matchday.addGame(game);
         assertThat(matchday.getGames().size()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("Constructed MatchDay has 9 games")
+    public void createMatchDayWithGames(){
+        MatchDay matchday = new MatchDay(9);
+        assertThat(matchday.getGames().size()).isEqualTo(9);
     }
 
     @Test
@@ -67,4 +76,35 @@ public class MatchDayTest {
         assertThat(games.get(0).getGoalsHomeTeam()).isGreaterThanOrEqualTo(0);
     }
 
+    @Test
+    @DisplayName("Team is already in playing this matchday")
+    public void teamIsPlayingThisMatchDay(){
+        MatchDay matchDay = new MatchDay();
+        Team dortmund = new Team("Dortmund");
+        Team koeln  = new Team("Koeln");
+        Game game = new Game(dortmund, koeln);
+        matchDay.addGame(game);
+        assertThat(matchDay.teamIsPlaying(koeln)).isTrue();
+    }
+
+    @Test
+    @DisplayName("Cant Add a Game with a playing team")
+    public void cantAddAGameWithAPlayingTeam() {
+        MatchDay matchDay = new MatchDay();
+        Team dortmund = new Team("Dortmund");
+        Team koeln  = new Team("Koeln");
+        Game game = new Game(dortmund, koeln);
+        matchDay.addGame(game);
+        matchDay.addGame(game);
+        assertThat(matchDay.getGames().size()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("Print Matchday with random Score")
+    public void teamPlaysThisMatchDay() {
+        Season season = new Season();
+        var matchDay = season.generateMatchday();
+        matchDay.simulateGames();
+        matchDay.printMatchResults();
+    }
 }

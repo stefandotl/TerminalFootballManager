@@ -1,8 +1,5 @@
 package game;
 
-import excpetions.ToManyTeamsException;
-import org.apache.logging.slf4j.Log4jLogger;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,12 +11,14 @@ import java.util.stream.Stream;
 public class Season {
 
     List<Team> teams = new ArrayList<>();
-    MatchDay matchDay = new MatchDay();
     LeagueTable leagueTable = new LeagueTable();
-    List<MatchDay> listMatchDays = new ArrayList<>();
-    List<Integer> playedGamesTeamIndizes = new ArrayList<>();
+    private int numOfMatchDays = 2 * 17;
+    private int gamesPerMatchDay = 9;
+    private List<Game> gamesFirstLeg;
+    private List<MatchDay> listMatchDays = Arrays.asList(new MatchDay[numOfMatchDays]);
+    private List<Integer> playedGamesTeamIndizes = new ArrayList<>();
 
-    public static void log(Level level, String msg){
+    public static void log(Level level, String msg) {
         // Create a Logger
         Logger logger = Logger.getLogger(Season.class.getName());
     }
@@ -31,7 +30,7 @@ public class Season {
     }
 
     public Season(boolean generate) {
-        if(generate == true){
+        if (generate == true) {
             this.teams = generateTeams();
             generateMatchdays();
             this.leagueTable = generateLeagueTable();
@@ -64,7 +63,7 @@ public class Season {
 
     public boolean hasEnoughTeams() {
 //        todo: check which country you have and adjust league size
-        return teams.size() == 20 || teams.size() == 18 || teams.size() == 16 ;
+        return teams.size() == 20 || teams.size() == 18 || teams.size() == 16;
     }
 
     public List<Team> generateTeams() {
@@ -92,35 +91,35 @@ public class Season {
         leagueTable.printTable();
     }
 
-    public void generateMatchdays(){
-        int matches = (teams.size() - 1)*2;
-
-        for (int i=0; i<matches; i++){
-            MatchDay matchDay = generateMatches(i);
-            this.listMatchDays.add(matchDay);
+    public void generateMatchdays() {
+        int matches = numOfMatchDays;
+        for (int i = 0; i < matches; i++) {
+            MatchDay matchDay = generateEmptyMatches(gamesPerMatchDay);
+            listMatchDays.set(i, matchDay);
         }
     }
-
-    private MatchDay generateMatches(int matchDayNumber){
-//        fixme: games are not randomly
+    private MatchDay generateEmptyMatches(int gamesPerMatchDay) {
         MatchDay matchDay = new MatchDay();
-        int matches = teams.size() / 2;
-        int index = matchDayNumber;
-        for (int i = 0; i < matches; i++) {
+        for (int i = 0; i < gamesPerMatchDay; i++) {
             Game game = new Game();
-            game.addTeams(teams.get(index % 17), teams.get((index + 1) % 17));
             matchDay.addGame(game);
-            index += 2;
         }
         return matchDay;
     }
 
-    private void generateMatchesForTeams() {
-        for (Team team: teams){
-            for (int i=0; i<17; i++){
-//            fixme: define array size
-            }
+
+    private MatchDay generateMatches(int matchDayNumber) {
+//        fixme: games are not randomly
+        int matchNum = teams.size() / 2;
+        MatchDay matchDay = new MatchDay(matchNum);
+        int index = matchDayNumber;
+        for (int i = 0; i < matchNum; i++) {
+            Game game = new Game();
+            game.addTeams(teams.get(index % 17), teams.get((index + 1) % 17));
+            matchDay.setGame(i, game);
+            index += 2;
         }
+        return matchDay;
     }
 
     public MatchDay getMatchday(int i) {
@@ -133,4 +132,20 @@ public class Season {
         return listMatchDays;
     }
 
+    public MatchDay generateMatchday() {
+        int matchNum = teams.size() / 2;
+        MatchDay matchDay = new MatchDay(matchNum);
+        int index = 0;
+        for (int i = 0; i < matchNum; i++) {
+            var game = matchDay.getGame(i);
+            try {
+                game.setTeams(teams.get(index % 17), teams.get((index + 1) % 17));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            matchDay.setGame(i, game);
+            index += 2;
+        }
+        return matchDay;
+    }
 }
