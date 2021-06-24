@@ -14,7 +14,7 @@ public class Season {
     LeagueTable leagueTable = new LeagueTable();
     private int numOfMatchDays = 2 * 17;
     private int gamesPerMatchDay = 9;
-    private List<Game> gamesFirstLeg;
+    private List<Game> gamesFirstLeg = new ArrayList<>();
     private List<MatchDay> listMatchDays = Arrays.asList(new MatchDay[numOfMatchDays]);
     private List<Integer> playedGamesTeamIndizes = new ArrayList<>();
 
@@ -92,13 +92,17 @@ public class Season {
     }
 
     public void generateMatchdays() {
-        int matches = numOfMatchDays;
-        for (int i = 0; i < matches; i++) {
-            MatchDay matchDay = generateEmptyMatches(gamesPerMatchDay);
-            listMatchDays.set(i, matchDay);
+        try {
+            int matches = numOfMatchDays;
+            for (int i = 0; i < matches; i++) {
+                MatchDay matchDay = generateEmptyMatches(gamesPerMatchDay);
+                listMatchDays.set(i, matchDay);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-    private MatchDay generateEmptyMatches(int gamesPerMatchDay) {
+    private MatchDay generateEmptyMatches(int gamesPerMatchDay) throws Exception {
         MatchDay matchDay = new MatchDay();
         for (int i = 0; i < gamesPerMatchDay; i++) {
             Game game = new Game();
@@ -135,16 +139,45 @@ public class Season {
     public MatchDay generateMatchday() {
         int matchNum = teams.size() / 2;
         MatchDay matchDay = new MatchDay(matchNum);
-        int index = 0;
+        int indHome = 0;
+        int indAway = indHome + 1;
         for (int i = 0; i < matchNum; i++) {
             var game = matchDay.getGame(i);
-            try {
-                game.setTeams(teams.get(index % 17), teams.get((index + 1) % 17));
-            } catch (Exception e) {
-                e.printStackTrace();
+            boolean gameAdded = false;
+            while (!gameAdded) {
+                try {
+                    game.setTeams(teams.get(indHome % 18), teams.get(indAway % 18));
+                    indHome += 2;
+                    indAway += 2;
+                    gamesFirstLeg.add(game);
+                    gameAdded = true;
+                } catch (Exception e) {
+                    indAway += 1;
+                }
             }
-            matchDay.setGame(i, game);
-            index += 2;
+        }
+        return matchDay;
+    }
+
+    public MatchDay generateMatchdaysNew() {
+        int matchNum = teams.size() / 2;
+        MatchDay matchDay = new MatchDay(matchNum);
+        int indHome = 0;
+        int indAway = indHome + 1;
+        for (int i = 0; i < matchNum; i++) {
+            var game = matchDay.getGame(i);
+            boolean gameAdded = false;
+            while (!gameAdded) {
+                try {
+                    game.setTeams(teams.get(indHome % 17), teams.get(indAway % 17));
+                    indHome += 2;
+                    indAway += 2;
+                    gamesFirstLeg.add(game);
+                    gameAdded = true;
+                } catch (Exception e) {
+                    indAway += 1;
+                }
+            }
         }
         return matchDay;
     }

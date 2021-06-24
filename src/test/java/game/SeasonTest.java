@@ -64,7 +64,7 @@ public class SeasonTest {
 
     @Test
     @DisplayName("Generate Matchday")
-    public void generateMatchday() {
+    public void generateMatchday() throws Exception {
         Season season = new Season();
         season.generateMatchdays();
         List<MatchDay> matchDayList = season.getAllMatchdays();

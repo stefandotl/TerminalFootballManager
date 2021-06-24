@@ -14,7 +14,7 @@ public class MatchDayTest {
 
     @Test
     @DisplayName("Add game to matchday")
-    public void addGameToMatchday() {
+    public void addGameToMatchday() throws Exception {
         MatchDay matchday = new MatchDay();
         Team team1 = new Team("Hamburg");
         Team team2 = new Team("dortmund");
@@ -33,7 +33,7 @@ public class MatchDayTest {
 
     @Test
     @DisplayName("Simulate Matchday")
-    public void simulateMatchDay() {
+    public void simulateMatchDay() throws Exception {
         MatchDay matchday = new MatchDay();
         Team team1 = new Team("Hamburg");
         Team team2 = new Team("dortmund");
@@ -78,7 +78,7 @@ public class MatchDayTest {
 
     @Test
     @DisplayName("Team is already in playing this matchday")
-    public void teamIsPlayingThisMatchDay(){
+    public void teamIsPlayingThisMatchDay() throws Exception {
         MatchDay matchDay = new MatchDay();
         Team dortmund = new Team("Dortmund");
         Team koeln  = new Team("Koeln");
@@ -89,7 +89,7 @@ public class MatchDayTest {
 
     @Test
     @DisplayName("Cant Add a Game with a playing team")
-    public void cantAddAGameWithAPlayingTeam() {
+    public void cantAddAGameWithAPlayingTeam() throws Exception {
         MatchDay matchDay = new MatchDay();
         Team dortmund = new Team("Dortmund");
         Team koeln  = new Team("Koeln");

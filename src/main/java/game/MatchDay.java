@@ -21,15 +21,18 @@ public class MatchDay {
     public MatchDay() {
     }
 
-    public void addGame(Game game) {
+    public void addGame(Game game) throws Exception {
         try {
-            if (games.contains(game)) {
+            if (teamIsPlaying(game.getHomeTeam()) || teamIsPlaying(game.getAwayTeam())){
+                throw new TeamAlreadyExistsException("This Team is already playing");
+            }
+            else if (games.contains(game)) {
                 throw new GameAlreadyExistsException("Team is already playing this Matchday");
             } else {
                 games.add(game);
             }
-        } catch (GameAlreadyExistsException e) {
-            e.printStackTrace();
+        } catch (GameAlreadyExistsException | TeamAlreadyExistsException e) {
+            throw new Exception();
         }
     }
 
@@ -62,10 +65,12 @@ public class MatchDay {
     }
 
     public boolean teamIsPlaying(Team team) {
-        var teamName = team.getName();
-        for (Game game : games){
-            if(game.getHomeTeam() == team || game.getAwayTeam() == team){
-                return true;
+        if (team != null){
+            var teamName = team.getName();
+            for (Game game : games){
+                if(game.getHomeTeam() == team || game.getAwayTeam() == team){
+                    return true;
+                }
             }
         }
         return false;
