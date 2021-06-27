@@ -70,7 +70,6 @@ public class TeamScore{
     }
 
     public List<Integer> getTeamScore() {
-//        fixme: change list to Set?
         return Arrays.asList(gamesPlayed, goalsScored, goalsConceded, points);
     }
 

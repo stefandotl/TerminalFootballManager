@@ -51,7 +51,7 @@ public class LeagueTableTest {
     void getTeamsToLeague() {
         LeagueTable leagueTable = new LeagueTable();
         Season season = new Season();
-        var matchDay = season.getMatchday(0);
+        var matchDay = season.generateMatchday(0);
         matchDay.simulateGames();
         leagueTable.printTable();
         assertThat(season.hasEnoughTeams()).isTrue();
@@ -61,7 +61,7 @@ public class LeagueTableTest {
     @DisplayName("Sort the Table")
     public void printTable() {
         Season season = new Season();
-        var matchDay = season.getMatchday(0);
+        var matchDay = season.generateMatchday(0);
         matchDay.simulateGames();
         matchDay.printMatchResults();
         System.out.println("-----------------------------------");
@@ -71,7 +71,7 @@ public class LeagueTableTest {
         System.out.println("-----------------------------------");
         System.out.println("-----------------------------------");
         System.out.println("-----------------------------------");
-        var matchDay2 = season.getMatchday(0);
+        var matchDay2 = season.generateMatchday(0);
         matchDay2.simulateGames();
         matchDay2.printMatchResults();
         System.out.println("-----------------------------------");

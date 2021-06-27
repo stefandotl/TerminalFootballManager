@@ -39,7 +39,6 @@ public class Team {
     }
 
     public String getId() {
-//        TODO: check which id you want, a name as id or a unique long id
         return name;
     }
 

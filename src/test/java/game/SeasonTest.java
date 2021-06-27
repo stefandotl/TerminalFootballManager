@@ -56,25 +56,26 @@ public class SeasonTest {
     @DisplayName("print Table")
     public void printTable() {
         Season season = new Season();
-        var matchDay = season.getMatchday(0);
+        var matchDay = season.generateMatchday(0);
         matchDay.simulateGames();
         season.printTable();
         assertThat(matchDay.getGames().size()).isEqualTo(9);
     }
 
     @Test
-    @DisplayName("Generate Matchday")
-    public void generateMatchday() throws Exception {
+    @DisplayName("Generate Several Matchdays")
+    public void generateMatchDayNewVersion() {
         Season season = new Season();
-        season.generateMatchdays();
-        List<MatchDay> matchDayList = season.getAllMatchdays();
-        int matchdayIndex = 1;
-        for (MatchDay matchDay : matchDayList){
-            matchDay.simulateGames();
-            System.out.printf("-----" + matchdayIndex +"-------\n");
-            matchDay.printMatchResults();
-            matchdayIndex++;
-        }
-//        assertThat(season.getListMatchDays().size()).isEqualTo(34);
+        var matchDay = season.generateMatchday(0);
+        matchDay.simulateGames();
+        var matchDay2 = season.generateMatchday(1);
+        matchDay2.simulateGames();
+        var matchDay3 = season.generateMatchday(2);
+        matchDay3.simulateGames();
+        matchDay.printMatchResults();
+        System.out.println("----------");
+        matchDay2.printMatchResults();
+        System.out.println("----------");
+        matchDay3.printMatchResults();
     }
 }

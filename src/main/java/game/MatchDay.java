@@ -1,10 +1,9 @@
 package game;
 
 import excpetions.GameAlreadyExistsException;
-import excpetions.TeamAlreadyExistsException;
+import excpetions.TeamIsAlreadyPlayingException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MatchDay {
@@ -21,18 +20,11 @@ public class MatchDay {
     public MatchDay() {
     }
 
-    public void addGame(Game game) throws Exception {
-        try {
-            if (teamIsPlaying(game.getHomeTeam()) || teamIsPlaying(game.getAwayTeam())){
-                throw new TeamAlreadyExistsException("This Team is already playing");
-            }
-            else if (games.contains(game)) {
-                throw new GameAlreadyExistsException("Team is already playing this Matchday");
-            } else {
-                games.add(game);
-            }
-        } catch (GameAlreadyExistsException | TeamAlreadyExistsException e) {
-            throw new Exception();
+    public void addGame(Game game) throws TeamIsAlreadyPlayingException {
+        if (teamIsPlaying(game.getHomeTeam()) || teamIsPlaying(game.getAwayTeam())){
+            throw new TeamIsAlreadyPlayingException("This Team is already playing");
+        } else {
+            games.add(game);
         }
     }
 

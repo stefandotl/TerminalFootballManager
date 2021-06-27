@@ -1,10 +1,15 @@
 package game;
 
-import excpetions.GameAlreadyExistsException;
-import excpetions.TeamAlreadyExistsException;
-
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import excpetions.GameAlreadyExistsException;
+import excpetions.TeamIsAlreadyPlayingException;
+import org.junit.Before;
+import org.mockito.Mockito;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -53,7 +58,7 @@ public class MatchDayTest {
     @DisplayName("Print Matchday")
     public void printMatchday() {
         Season season = new Season();
-        var matchDay = season.getMatchday(0);
+        var matchDay = season.generateMatchday(0);
         matchDay.printMatchResults();
     }
 
@@ -61,7 +66,7 @@ public class MatchDayTest {
     @DisplayName("Print Matchday with random Score")
     public void printMatchdayWithRandomScore() {
         Season season = new Season();
-        var matchDay = season.getMatchday(0);
+        var matchDay = season.generateMatchday(0);
         matchDay.simulateGames();
         matchDay.printMatchResults();
     }
@@ -70,7 +75,7 @@ public class MatchDayTest {
     @DisplayName("Print Matchday with random Score")
     public void getMatchdayWithRandomScore() {
         Season season = new Season();
-        var matchDay = season.getMatchday(0);
+        var matchDay = season.generateMatchday(0);
         matchDay.simulateGames();
         List<Game> games = matchDay.getGames();
         assertThat(games.get(0).getGoalsHomeTeam()).isGreaterThanOrEqualTo(0);
@@ -90,21 +95,38 @@ public class MatchDayTest {
     @Test
     @DisplayName("Cant Add a Game with a playing team")
     public void cantAddAGameWithAPlayingTeam() throws Exception {
-        MatchDay matchDay = new MatchDay();
-        Team dortmund = new Team("Dortmund");
-        Team koeln  = new Team("Koeln");
-        Game game = new Game(dortmund, koeln);
-        matchDay.addGame(game);
-        matchDay.addGame(game);
-        assertThat(matchDay.getGames().size()).isEqualTo(1);
+        assertThrows(TeamIsAlreadyPlayingException.class, ()->{
+            MatchDay matchDay = new MatchDay();
+            Team dortmund = new Team("Dortmund");
+            Team koeln  = new Team("Koeln");
+            Game game = new Game(dortmund, koeln);
+            matchDay.addGame(game);
+            matchDay.addGame(game);
+        });
     }
 
     @Test
     @DisplayName("Print Matchday with random Score")
     public void teamPlaysThisMatchDay() {
         Season season = new Season();
-        var matchDay = season.generateMatchday();
+        var matchDay = season.generateMatchday(0);
         matchDay.simulateGames();
         matchDay.printMatchResults();
+    }
+
+    @Test
+    @DisplayName("Add Game and throw game already exists exception")
+    public void addGameWithException() {
+        assertThrows(TeamIsAlreadyPlayingException.class, () -> {
+            MatchDay matchDay = new MatchDay();
+            Team kaiserslautern = new Team("Kaiserslautern");
+            Team dortmund = new Team("Dortmund");
+            var game1 = new Game();
+            var game2 = new Game();
+            game1.addTeams(kaiserslautern, dortmund);
+            game2.addTeams(kaiserslautern, dortmund);
+            matchDay.addGame(game1);
+            matchDay.addGame(game2);
+        });
     }
 }

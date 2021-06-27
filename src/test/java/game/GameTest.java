@@ -1,5 +1,7 @@
 package game;
 
+import excpetions.HomeTeamIsAwayTeamException;
+import excpetions.NotEnoughTeamsException;
 import excpetions.ToManyTeamsException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +34,7 @@ public class GameTest {
 
     @Test
     @DisplayName("Game has started")
-    public void startGame() {
+    public void startGame() throws NotEnoughTeamsException {
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
 
@@ -44,7 +46,7 @@ public class GameTest {
 
     @Test
     @DisplayName("Game has ended")
-    public void endGame() {
+    public void endGame() throws NotEnoughTeamsException {
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
         game.addTeams(kaiserslautern, dortmund);
@@ -181,14 +183,25 @@ public class GameTest {
     }
 
     @Test
-    public void addHomeAndAwayTeam() {
+    public void addHomeAndAwayTeam() throws ToManyTeamsException, HomeTeamIsAwayTeamException {
         Game game = new Game();
         Team kaiserslautern = new Team("1 FC Kaisersalutern");
         Team dortmund = new Team("Borussia Dortmund");
-        game.addHomeTeam(kaiserslautern);
+        game.addTeam(kaiserslautern);
         assertThat(game.getHomeTeam()).isEqualTo(kaiserslautern);
-        game.addAwayTeam(dortmund);
+        game.addTeam(dortmund);
         assertThat(game.getAwayTeam()).isEqualTo(dortmund);
+    }
+
+    @Test
+    @DisplayName("add same team twice")
+    public void addSameTeamTwice() throws HomeTeamIsAwayTeamException {
+        assertThrows(HomeTeamIsAwayTeamException.class, ()->{
+            Game game = new Game();
+            Team kaiserslautern = new Team("1 FC Kaisersalutern");
+            game.addTeam(kaiserslautern);
+            game.addTeam(kaiserslautern);
+        });
     }
 
 }
