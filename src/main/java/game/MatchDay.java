@@ -57,8 +57,8 @@ public class MatchDay {
     }
 
     public boolean teamIsPlaying(Team team) {
+//        todo: check team by teamname as String?
         if (team != null){
-            var teamName = team.getName();
             for (Game game : games){
                 if(game.getHomeTeam() == team || game.getAwayTeam() == team){
                     return true;

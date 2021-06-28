@@ -139,7 +139,7 @@ public class Game {
     }
 
     public void printScore() {
-        System.out.printf("%s  %s : %s  %s", teams.get(0).getName(), this.goalsHomeTeam, this.goalsAwayTeam, teams.get(1).getName());
+        System.out.printf("%s  %s : %s  %s \n", teams.get(0).getName(), this.goalsHomeTeam, this.goalsAwayTeam, teams.get(1).getName());
     }
 
     public void printScoreWithoutTeams() {

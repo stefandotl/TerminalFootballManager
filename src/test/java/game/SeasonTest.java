@@ -1,6 +1,8 @@
 package game;
 
 import excpetions.ToManyTeamsException;
+import org.hibernate.annotations.common.util.impl.Log;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -77,5 +79,48 @@ public class SeasonTest {
         matchDay2.printMatchResults();
         System.out.println("----------");
         matchDay3.printMatchResults();
+    }
+
+    @Test
+    @DisplayName("print Table")
+    public void generateFirstLeg() {
+        Season season = new Season();
+        var matchDay = season.getMatchday(0);
+        matchDay.simulateGames();
+        matchDay.printMatchResults();
+        System.out.println("---------------");
+        season.printTable();
+    }
+
+    @Test
+    @DisplayName("print Table")
+    public void TeamPlaysAgainstEveryOtherTeam() {
+        Season season = new Season();
+        int gameCounter=0;
+        int matchDayCounter=1;
+        System.out.println("----"+ matchDayCounter + "-----\n");
+        for (Game game : season.gamesFirstLeg){
+            if (game.getHomeTeam() == null){
+                System.out.println("----------------");
+                System.out.println("matchDayCounter: " + matchDayCounter + "  Game: " + gameCounter);
+                System.out.println("----------------");
+                gameCounter += 1;
+                if (gameCounter==9){
+                    gameCounter=0;
+                    matchDayCounter += 1;
+                    System.out.println(String.format("---- %s -----\n", matchDayCounter));
+                }
+            } else {
+                game.simulateRandomScore();
+                game.printScore();
+                gameCounter+=1;
+                if (gameCounter==9){
+                    gameCounter=0;
+                    matchDayCounter += 1;
+                    System.out.println(String.format("---- %s -----\n", matchDayCounter));
+                }
+            }
+        }
+        season.printTable();
     }
 }
