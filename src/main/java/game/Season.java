@@ -19,8 +19,9 @@ public class Season {
     private final int gamesPerMatchDay = 9;
     public List<Game> allGamesCombinations = new ArrayList<>();
     public List<Game> gamesFirstLeg = new ArrayList<>();
+    public List<MatchDay> matchDaysFirstLeg = new ArrayList<>();
     private List<MatchDay> listMatchDays = new ArrayList<>();
-    private List<Integer> playedGamesTeamIndizes = new ArrayList<>();
+    private final List<Integer> playedGamesTeamIndizes = new ArrayList<>();
 
     public static void log(Level level, String msg) {
         // Create a Logger
@@ -28,21 +29,47 @@ public class Season {
     }
 
     public Season() {
-        this.teams = generateTeams();
-        generateAllGamesCombinations();
-        generateMatchdaysSeason();
-        this.leagueTable = generateLeagueTable();
+        try {
+            this.teams = generateTeams();
+            generateMatchdaysSeason();
+            this.leagueTable = generateLeagueTable();
+        } catch (TeamIsAlreadyPlayingException e) {
+            e.printStackTrace();
+        }
     }
 
-//    public MatchDay generateMatchdayV3(){
-//        ;
-//    }
+    public void generateMatchdaysSeason() throws TeamIsAlreadyPlayingException {
+        int matches = numOfMatchDaysFirstLeg;
+        for (int i = 0; i < matches; i++) {
+//                MatchDay matchDay = generateMatchday(i);
+//            MatchDay matchDay = generateMatchdayV2();
+            MatchDay matchDay = generateMatchdayV3(teams);
+            teams.add(0, teams.get(teams.size() - 1));
+            teams.remove(teams.size() - 1);
+            listMatchDays.add(matchDay);
+        }
+    }
+
+    public MatchDay generateMatchdayV3(List<Team> teams) throws TeamIsAlreadyPlayingException {
+        int matchNum = teams.size() / 2;
+        MatchDay matchDay = new MatchDay();
+        int index = 0;
+        for (int i = 0; i < matchNum; i++) {
+            Game game = new Game(teams.get(index % 18), teams.get((index + 1) % 18));
+            matchDay.addGame(game);
+            gamesFirstLeg.add(game);
+            index += 2;
+        }
+        listMatchDays.add(matchDay);
+        matchDaysFirstLeg.add(matchDay);
+        return matchDay;
+    }
 
     public MatchDay generateMatchdayV2() throws TeamIsAlreadyPlayingException {
         MatchDay matchDay = new MatchDay();
-        for(int i=0; i<gamesPerMatchDay; i++){
-            for(int j=0; j<allGamesCombinations.size(); j++){
-                if (teamsAreNotPlayingThisMatchDay(matchDay, allGamesCombinations.get(j)) && teamsHaventPlayedThisLeg(allGamesCombinations.get(j))){
+        for (int i = 0; i < gamesPerMatchDay; i++) {
+            for (int j = 0; j < allGamesCombinations.size(); j++) {
+                if (teamsAreNotPlayingThisMatchDay(matchDay, allGamesCombinations.get(j)) && teamsHaventPlayedThisLeg(allGamesCombinations.get(j))) {
                     matchDay.addGame(allGamesCombinations.get(j));
                     gamesFirstLeg.add(allGamesCombinations.get(j));
                     allGamesCombinations.remove(j);
@@ -55,10 +82,10 @@ public class Season {
     private boolean teamsHaventPlayedThisLeg(Game game) {
         var homeTeam = game.getHomeTeam();
         var awayTeam = game.getAwayTeam();
-        for (Game gamePlayed : gamesFirstLeg){
+        for (Game gamePlayed : gamesFirstLeg) {
             var playedHomeTeam = gamePlayed.getHomeTeam();
             var playedAwayTeam = gamePlayed.getAwayTeam();
-            if ((playedHomeTeam == homeTeam && playedAwayTeam == awayTeam) || (playedAwayTeam == homeTeam && playedHomeTeam == awayTeam)){
+            if ((playedHomeTeam == homeTeam && playedAwayTeam == awayTeam) || (playedAwayTeam == homeTeam && playedHomeTeam == awayTeam)) {
                 return false;
             }
         }
@@ -66,10 +93,10 @@ public class Season {
     }
 
     private boolean teamsAreNotPlayingThisMatchDay(MatchDay matchDay, Game game) {
-        for (Team team : game.getTeams()){
-            if (team != null){
-                for (Game gameInMatchDay : matchDay.getGames()){
-                    if(gameInMatchDay.getHomeTeam() == team || gameInMatchDay.getAwayTeam() == team){
+        for (Team team : game.getTeams()) {
+            if (team != null) {
+                for (Game gameInMatchDay : matchDay.getGames()) {
+                    if (gameInMatchDay.getHomeTeam() == team || gameInMatchDay.getAwayTeam() == team) {
                         return false;
                     }
                 }
@@ -79,9 +106,9 @@ public class Season {
     }
 
     private void generateAllGamesCombinations() {
-        for (Team team : teams){
-            for (int i=0; i < teams.size(); i++){
-                if (team != teams.get(i)){
+        for (Team team : teams) {
+            for (int i = 0; i < teams.size(); i++) {
+                if (team != teams.get(i)) {
                     Game game = new Game(team, teams.get(i));
                     allGamesCombinations.add(game);
                 }
@@ -90,12 +117,16 @@ public class Season {
     }
 
     public Season(boolean generate) {
-        if (generate == true) {
-            this.teams = generateTeams();
-            generateMatchdaysSeason();
-            this.leagueTable = generateLeagueTable();
-        } else {
-            Logger.getLogger(Season.class.getName()).info("No teams will be generated");
+        try {
+            if (generate == true) {
+                this.teams = generateTeams();
+                generateMatchdaysSeason();
+                this.leagueTable = generateLeagueTable();
+            } else {
+                Logger.getLogger(Season.class.getName()).info("No teams will be generated");
+            }
+        } catch (TeamIsAlreadyPlayingException e) {
+            e.printStackTrace();
         }
     }
 
@@ -151,20 +182,6 @@ public class Season {
         leagueTable.printTable();
     }
 
-    public void generateMatchdaysSeason() {
-        try {
-//            todo: make second leg based on first leg
-            int matches = numOfMatchDaysFirstLeg;
-            for (int i = 0; i < matches; i++) {
-//                MatchDay matchDay = generateMatchday(i);
-                MatchDay matchDay = generateMatchdayV2();
-                listMatchDays.add(matchDay);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public MatchDay getMatchday(int i) {
         var matchDay = this.listMatchDays.get(i);
         return matchDay;
@@ -183,25 +200,25 @@ public class Season {
         for (int i = 0; i < matchNum; i++) {
             boolean gameAdded = false;
             while (!gameAdded) {
-                if (indHome == indAway){
+                if (indHome == indAway) {
                     indHome += 1;
                 }
                 Team homeTeam = teams.get(indHome % 18);
                 Team awayTeam = teams.get(indAway % 18);
-                if (homeTeam == awayTeam){
+                if (homeTeam == awayTeam) {
                     indHome += 1;
                     homeTeam = teams.get(indHome % 18);
                 }
                 Game testGame = new Game(homeTeam, awayTeam);
                 try {
-                    if (matchDay.teamIsPlaying(homeTeam)){
+                    if (matchDay.teamIsPlaying(homeTeam)) {
                         throw new HomeTeamAlreadyPlaysException("This Team is already Playing this Matchday");
-                    } else if (matchDay.teamIsPlaying(awayTeam)){
+                    } else if (matchDay.teamIsPlaying(awayTeam)) {
                         throw new AwayTeamAlreadyPlaysException("This Team is already Playing this Matchday");
-                    } else if (gameIsInFirstLeg(testGame)){
+                    } else if (gameIsInFirstLeg(testGame)) {
                         throw new GameIsAlreadyPlayedException("This Teams are already Playing");
                     }
-                    if ((homeTeam != null) && (awayTeam != null)){
+                    if ((homeTeam != null) && (awayTeam != null)) {
                         var game = matchDay.getGame(i);
                         game.addTeams(homeTeam, awayTeam);
                         indHome += 2;   // besser + 1 machen da sonst zu viel übersprungen?
@@ -209,9 +226,9 @@ public class Season {
                         this.gamesFirstLeg.add(game);
                         gameAdded = true;
                     }
-                } catch (HomeTeamAlreadyPlaysException e){
+                } catch (HomeTeamAlreadyPlaysException e) {
                     indHome += 1;
-                } catch (AwayTeamAlreadyPlaysException | GameIsAlreadyPlayedException e){
+                } catch (AwayTeamAlreadyPlaysException | GameIsAlreadyPlayedException e) {
                     indAway += 1;
                 }
             }
@@ -219,14 +236,14 @@ public class Season {
         return matchDay;
     }
 
-    public boolean gameIsInFirstLeg(Game testGame){
+    public boolean gameIsInFirstLeg(Game testGame) {
         var testHomeTeam = testGame.getHomeTeam();
         var testAwayTeam = testGame.getAwayTeam();
-        for (Game game : gamesFirstLeg){
+        for (Game game : gamesFirstLeg) {
             var homeTeam = game.getHomeTeam();
             var awayTeam = game.getAwayTeam();
 //           checks if teams have already playde in the first leg against each other
-            if (((testHomeTeam == homeTeam) && (testAwayTeam == awayTeam)) || ((testHomeTeam == awayTeam) && (testAwayTeam == homeTeam))){
+            if (((testHomeTeam == homeTeam) && (testAwayTeam == awayTeam)) || ((testHomeTeam == awayTeam) && (testAwayTeam == homeTeam))) {
                 return true;
             }
         }
