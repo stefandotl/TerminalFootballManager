@@ -55,33 +55,6 @@ public class MatchDayTest {
     }
 
     @Test
-    @DisplayName("Print Matchday")
-    public void printMatchday() {
-        Season season = new Season();
-        var matchDay = season.generateMatchday(0);
-        matchDay.printMatchResults();
-    }
-
-    @Test
-    @DisplayName("Print Matchday with random Score")
-    public void printMatchdayWithRandomScore() {
-        Season season = new Season();
-        var matchDay = season.generateMatchday(0);
-        matchDay.simulateGames();
-        matchDay.printMatchResults();
-    }
-    
-    @Test
-    @DisplayName("Print Matchday with random Score")
-    public void getMatchdayWithRandomScore() {
-        Season season = new Season();
-        var matchDay = season.generateMatchday(0);
-        matchDay.simulateGames();
-        List<Game> games = matchDay.getGames();
-        assertThat(games.get(0).getGoalsHomeTeam()).isGreaterThanOrEqualTo(0);
-    }
-
-    @Test
     @DisplayName("Team is already in playing this matchday")
     public void teamIsPlayingThisMatchDay() throws Exception {
         MatchDay matchDay = new MatchDay();
@@ -103,15 +76,6 @@ public class MatchDayTest {
             matchDay.addGame(game);
             matchDay.addGame(game);
         });
-    }
-
-    @Test
-    @DisplayName("Print Matchday with random Score")
-    public void teamPlaysThisMatchDay() {
-        Season season = new Season();
-        var matchDay = season.generateMatchday(0);
-        matchDay.simulateGames();
-        matchDay.printMatchResults();
     }
 
     @Test

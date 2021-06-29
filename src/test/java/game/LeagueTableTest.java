@@ -46,37 +46,37 @@ public class LeagueTableTest {
 //        leagueTable.printTable();
     }
 
-    @Test
-    @DisplayName("Get teams from file to league")
-    void getTeamsToLeague() {
-        LeagueTable leagueTable = new LeagueTable();
-        Season season = new Season();
-        var matchDay = season.generateMatchday(0);
-        matchDay.simulateGames();
-        leagueTable.printTable();
-        assertThat(season.hasEnoughTeams()).isTrue();
-    }
+//    @Test
+//    @DisplayName("Get teams from file to league")
+//    void getTeamsToLeague() {
+//        LeagueTable leagueTable = new LeagueTable();
+//        Season season = new Season();
+//        var matchDay = season.generateMatchday(0);
+//        matchDay.simulateGames();
+//        leagueTable.printTable();
+//        assertThat(season.hasEnoughTeams()).isTrue();
+//    }
 
-    @Test
-    @DisplayName("Sort the Table")
-    public void printTable() {
-        Season season = new Season();
-        var matchDay = season.generateMatchday(0);
-        matchDay.simulateGames();
-        matchDay.printMatchResults();
-        System.out.println("-----------------------------------");
-        System.out.println("-----------------------------------");
-        System.out.println("-----------------------------------");
-        season.printTable();
-        System.out.println("-----------------------------------");
-        System.out.println("-----------------------------------");
-        System.out.println("-----------------------------------");
-        var matchDay2 = season.generateMatchday(0);
-        matchDay2.simulateGames();
-        matchDay2.printMatchResults();
-        System.out.println("-----------------------------------");
-        System.out.println("-----------------------------------");
-        System.out.println("-----------------------------------");
-        season.printTable();
-    }
+//    @Test
+//    @DisplayName("Sort the Table")
+//    public void printTable() {
+//        Season season = new Season();
+//        var matchDay = season.generateMatchday(0);
+//        matchDay.simulateGames();
+//        matchDay.printMatchResults();
+//        System.out.println("-----------------------------------");
+//        System.out.println("-----------------------------------");
+//        System.out.println("-----------------------------------");
+//        season.printTable();
+//        System.out.println("-----------------------------------");
+//        System.out.println("-----------------------------------");
+//        System.out.println("-----------------------------------");
+//        var matchDay2 = season.generateMatchday(0);
+//        matchDay2.simulateGames();
+//        matchDay2.printMatchResults();
+//        System.out.println("-----------------------------------");
+//        System.out.println("-----------------------------------");
+//        System.out.println("-----------------------------------");
+//        season.printTable();
+//    }
 }

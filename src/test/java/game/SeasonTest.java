@@ -8,8 +8,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.STREAM;
 
 public class SeasonTest {
 
@@ -58,68 +60,26 @@ public class SeasonTest {
     @DisplayName("print Table")
     public void printTable() {
         Season season = new Season();
-        var matchDay = season.generateMatchday(0);
+        var matchDay = season.getMatchday(0);
         matchDay.simulateGames();
         season.printTable();
         assertThat(matchDay.getGames().size()).isEqualTo(9);
-    }
-
-    @Test
-    @DisplayName("Generate Several Matchdays")
-    public void generateMatchDayNewVersion() {
-        Season season = new Season();
-        var matchDay = season.generateMatchday(0);
-        matchDay.simulateGames();
-        var matchDay2 = season.generateMatchday(1);
-        matchDay2.simulateGames();
-        var matchDay3 = season.generateMatchday(2);
-        matchDay3.simulateGames();
-        matchDay.printMatchResults();
-        System.out.println("----------");
-        matchDay2.printMatchResults();
-        System.out.println("----------");
-        matchDay3.printMatchResults();
-    }
-
-    @Test
-    @DisplayName("print Table")
-    public void generateFirstLeg() {
-        Season season = new Season();
-        var matchDay = season.getMatchday(0);
-        matchDay.simulateGames();
-        matchDay.printMatchResults();
         System.out.println("---------------");
         season.printTable();
     }
 
     @Test
-    @DisplayName("print Table")
-    public void TeamPlaysAgainstEveryOtherTeam() {
+    @DisplayName("GenerateMatchDay V3")
+    public void generateMatchDayV3(){
         Season season = new Season();
-        int gameCounter=0;
-        int matchDayCounter=1;
-        System.out.println("----"+ matchDayCounter + "-----\n");
-        for (Game game : season.gamesFirstLeg){
-            if (game.getHomeTeam() == null){
-                System.out.println("----------------");
-                System.out.println("matchDayCounter: " + matchDayCounter + "  Game: " + gameCounter);
-                System.out.println("----------------");
-                gameCounter += 1;
-                if (gameCounter==9){
-                    gameCounter=0;
-                    matchDayCounter += 1;
-                    System.out.println(String.format("---- %s -----\n", matchDayCounter));
-                }
-            } else {
-                game.simulateRandomScore();
-                game.printScore();
-                gameCounter+=1;
-                if (gameCounter==9){
-                    gameCounter=0;
-                    matchDayCounter += 1;
-                    System.out.println(String.format("---- %s -----\n", matchDayCounter));
-                }
-            }
+        var matchdays = season.getListMatchDays();
+        int i = 1;
+        for (MatchDay matchDay : matchdays){
+            System.out.println(i);
+            matchDay.simulateGames();
+            matchDay.printMatchResults();
+            System.out.println("------------------");
+            i++;
         }
         season.printTable();
     }

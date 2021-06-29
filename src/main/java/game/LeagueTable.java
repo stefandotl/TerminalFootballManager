@@ -23,13 +23,16 @@ public class LeagueTable {
 
     public void printTable() {
         this.table = sortTable();
+        int counter = 1;
         for (Team team : table){
+            String placeTable = String.format("%2s.", counter);
             String teamName = String.format("%-17s", team.getName());
             String gamesPlayed = String.format("%2s", team.getTeamScore().getGamesPlayed());
             String goalsScored = String.format("%2s", team.getTeamScore().getGoalsScored());
             String goalsConceded = String.format("%-2s", team.getTeamScore().getGoalsConceded());
             String points = String.format("%-2s", team.getTeamScore().getPoints());
-            System.out.printf("%s %s.  %s : %s  %s \n", teamName, gamesPlayed,
+            counter++;
+            System.out.printf("%s %s %s.  %s : %s  %s \n", placeTable, teamName, gamesPlayed,
                     goalsScored, goalsConceded, points);
         }
 

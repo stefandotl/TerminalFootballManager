@@ -15,13 +15,10 @@ public class Season {
     List<Team> teams = new ArrayList<>();
     LeagueTable leagueTable = new LeagueTable();
     private final int numOfMatchDaysFirstLeg = 17;
-    private final int numOfMatchDays = 2 * numOfMatchDaysFirstLeg;
-    private final int gamesPerMatchDay = 9;
-    public List<Game> allGamesCombinations = new ArrayList<>();
     public List<Game> gamesFirstLeg = new ArrayList<>();
     public List<MatchDay> matchDaysFirstLeg = new ArrayList<>();
+    public List<MatchDay> matchDaysSecondLeg = new ArrayList<MatchDay>();
     private List<MatchDay> listMatchDays = new ArrayList<>();
-    private final List<Integer> playedGamesTeamIndizes = new ArrayList<>();
 
     public static void log(Level level, String msg) {
         // Create a Logger
@@ -39,27 +36,62 @@ public class Season {
     }
 
     public void generateMatchdaysSeason() throws TeamIsAlreadyPlayingException {
-        int matches = numOfMatchDaysFirstLeg;
-        for (int i = 0; i < matches; i++) {
-//            todo: add second leg (you need second list = reverse teams list)
-            MatchDay matchDay = generateMatchdayV3(teams);
-            teams.add(0, teams.get(teams.size() - 1));
+        int matchesFirstLeg = numOfMatchDaysFirstLeg;
+        for (int i = 0; i < matchesFirstLeg; i++) {
+            MatchDay matchDay = generateMatchday(i, teams);
+            teams.add(1, teams.get(teams.size() - 1));
             teams.remove(teams.size() - 1);
             listMatchDays.add(matchDay);
+            if(matchDaysFirstLeg.size()==teams.size()-1){
+                matchDaysSecondLeg = reverse(matchDaysFirstLeg);
+            }
         }
     }
 
-    public MatchDay generateMatchdayV3(List<Team> teams) throws TeamIsAlreadyPlayingException {
-        int matchNum = teams.size() / 2;
-        MatchDay matchDay = new MatchDay();
-        int index = 0;
-        for (int i = 0; i < matchNum; i++) {
-            Game game = new Game(teams.get(index % 18), teams.get((index + 1) % 18));
-            matchDay.addGame(game);
-            gamesFirstLeg.add(game);
-            index += 2;
+    private List<MatchDay> reverse(List<MatchDay> matchDaysFirstLeg) throws TeamIsAlreadyPlayingException {
+        for(MatchDay matchDay : matchDaysFirstLeg){
+            MatchDay matchDay2 = new MatchDay();
+            for (Game game : matchDay.getGames()){
+                var teams = game.getTeams();
+                Team homeTeam = teams.get(1);
+                Team awayTeam = teams.get(0);
+                Game game2 = new Game(homeTeam, awayTeam);
+                matchDay2.addGame(game2);
+            }
+            matchDaysSecondLeg.add(matchDay2);
+            listMatchDays.add(matchDay2);
         }
-        listMatchDays.add(matchDay);
+        return matchDaysSecondLeg;
+    }
+
+    public MatchDay generateMatchday(int matchDayNum, List<Team> teams) throws TeamIsAlreadyPlayingException {
+//        todo: No it's still not working! Round Robin!
+        int matchNum = teams.size() / 2;
+
+        List<Team> l1 = new ArrayList<>();
+        for(int j=0; j<matchNum; j++){
+            l1.add(teams.get(j));
+        }
+
+        List<Team> l2 = new ArrayList<>();
+        for (int i=(teams.size()-1); i>=matchNum; i--){
+            l2.add(teams.get(i));
+        }
+
+        MatchDay matchDay = new MatchDay();
+        for (int i = 0; i < matchNum; i++) {
+
+            if(matchDayNum %2 == 1){
+                Game game1 = new Game(l1.get(i), l2.get(i));
+                matchDay.addGame(game1);
+                gamesFirstLeg.add(game1);
+            } else {
+                Game game = new Game(l2.get(i), l1.get(i));
+                matchDay.addGame(game);
+                gamesFirstLeg.add(game);
+            }
+
+        }
         matchDaysFirstLeg.add(matchDay);
         return matchDay;
     }
@@ -136,8 +168,8 @@ public class Season {
         return matchDay;
     }
 
-    public List<MatchDay> getAllMatchdays() {
-        return listMatchDays;
+    public List<MatchDay> getMatchDaysFirstLeg() {
+        return matchDaysFirstLeg;
     }
 
 }
