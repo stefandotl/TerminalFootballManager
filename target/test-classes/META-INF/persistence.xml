@@ -13,7 +13,7 @@
                       value="jdbc:h2:./db/repository"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.hbm2ddl.auto"
-                      value="update"/>
+                      value="create"/>
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="false"/>
         </properties>

@@ -37,6 +37,12 @@ public class TeamDataStoreTest {
     @Test
     public void addTeamWithPlayer(){
         Team team = new Team("1 FC. Kaiserslautern");
+        Player christiano = new Player("Christiano Ronaldo");
+        Player messi = new Player("Messi");
+        Player coolio = new Player("Coolio");
+        team.addPlayer(christiano);
+        team.addPlayer(messi);
+        team.addPlayer(coolio);
         teamDataStore.addTeam(team);
     }
 }

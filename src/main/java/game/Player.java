@@ -2,11 +2,11 @@ package game;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class Player {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     int id;
     String name;
     int skill;
@@ -17,14 +17,14 @@ public class Player {
     PlayerPosition additionalPosition3;
 
 //    @ManyToOne
-    Team team;
+    String teamName;
 
-    public Team getTeam() {
-        return team;
+    public String getTeam() {
+        return teamName;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeam(String teamName) {
+        this.teamName = teamName;
     }
 
     public Player() {

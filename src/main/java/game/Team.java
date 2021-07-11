@@ -25,8 +25,9 @@ public class Team {
         this.teamStrength = teamStrength;
     }
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<Player> players = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @Column(name = "PLAYERS")
+    private List<Player> players = new ArrayList<>();
 
     public Team() {
         name = "";
@@ -54,9 +55,10 @@ public class Team {
         return !name.isEmpty();
     }
 
-//    public void addPlayer(Player player) {
-//        players.add(player);
-//    }
+    public void addPlayer(Player player) {
+        player.setTeam(name);
+        players.add(player);
+    }
 
 //    public int numberOfPlayers() {
 //        return players.size();
