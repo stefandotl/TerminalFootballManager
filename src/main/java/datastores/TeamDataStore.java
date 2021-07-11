@@ -4,7 +4,6 @@ import game.Team;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class TeamDataStore {
 
@@ -19,9 +18,12 @@ public class TeamDataStore {
 
     public void addTeam(Team team) {
         EntityManager em = entityManagerFactory.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(team);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(team);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 }

@@ -1,6 +1,5 @@
 package game;
 
-import excpetions.GameAlreadyExistsException;
 import excpetions.TeamIsAlreadyPlayingException;
 
 import java.util.ArrayList;

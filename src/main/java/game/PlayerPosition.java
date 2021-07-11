@@ -1,7 +1,5 @@
 package game;
 
-import javax.persistence.Entity;
-
 //@Entity
 public enum PlayerPosition {
     GK, /*Goalkeeper*/

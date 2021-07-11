@@ -1,14 +1,18 @@
 package game;
 
-import org.hibernate.annotations.GeneratorType;
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import static javax.persistence.CascadeType.ALL;
+
+@Entity
 public class Team {
 
+    @Id
     public String name;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private TeamScore teamsScore;
 
     private int teamStrength;
@@ -21,8 +25,8 @@ public class Team {
         this.teamStrength = teamStrength;
     }
 
-//    @Column(name = "PLAYERS")
-    private List<Player> players = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<Player> players = new ArrayList<>();
 
     public Team() {
         name = "";
@@ -31,7 +35,7 @@ public class Team {
 
     public Team(String teamName) {
         this.name = teamName;
-        this.teamsScore = new TeamScore();
+        this.teamsScore = new TeamScore(this.name);
     }
 
     public String getName() {
@@ -50,17 +54,17 @@ public class Team {
         return !name.isEmpty();
     }
 
-    public void addPlayer(Player player) {
-        players.add(player);
-    }
+//    public void addPlayer(Player player) {
+//        players.add(player);
+//    }
 
-    public int numberOfPlayers() {
-        return players.size();
-    }
-
-    public boolean hasEnoughPlayers() {
-        return players.size() >= 16;
-    }
+//    public int numberOfPlayers() {
+//        return players.size();
+//    }
+//
+//    public boolean hasEnoughPlayers() {
+//        return players.size() >= 16;
+//    }
 
     public boolean hasGoalKeeper() {
 //        TODO: check if game.Team has a Goalkeeper

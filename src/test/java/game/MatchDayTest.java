@@ -1,19 +1,11 @@
 package game;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import excpetions.GameAlreadyExistsException;
 import excpetions.TeamIsAlreadyPlayingException;
-import org.junit.Before;
-import org.mockito.Mockito;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MatchDayTest {
 

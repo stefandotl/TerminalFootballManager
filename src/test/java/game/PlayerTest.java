@@ -1,6 +1,5 @@
 package game;
 
-import game.Player;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

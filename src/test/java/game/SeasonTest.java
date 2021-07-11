@@ -1,17 +1,10 @@
 package game;
 
-import excpetions.ToManyTeamsException;
-import org.hibernate.annotations.common.util.impl.Log;
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.stream.Stream;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.STREAM;
 
 public class SeasonTest {
 

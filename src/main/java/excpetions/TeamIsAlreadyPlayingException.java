@@ -6,8 +6,4 @@ public class TeamIsAlreadyPlayingException extends Exception {
     public TeamIsAlreadyPlayingException(String message) {
         LoggerFactory.getLogger(TeamIsAlreadyPlayingException.class.getName()).info(message);
     }
-
-    public TeamIsAlreadyPlayingException() {
-        LoggerFactory.getLogger(TeamIsAlreadyPlayingException.class.getName()).info("This Team Already Exists");
-    }
 }

@@ -1,14 +1,13 @@
 package game;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
-
+//@Entity
 public class Player {
 
-    Team team;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    int id;
     String name;
     int skill;
     int talent;
@@ -16,6 +15,17 @@ public class Player {
     PlayerPosition additionalPosition1;
     PlayerPosition additionalPosition2;
     PlayerPosition additionalPosition3;
+
+//    @ManyToOne
+    Team team;
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 
     public Player() {
 
@@ -68,9 +78,9 @@ public class Player {
         this.position = position;
     }
 
-    public Team getTeam() {
-        return team;
-    }
+//    public Team getTeam() {
+//        return team;
+//    }
 
     public String getName() {
         return name;

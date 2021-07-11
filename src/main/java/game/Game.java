@@ -2,10 +2,11 @@ package game;
 
 import excpetions.HomeTeamIsAwayTeamException;
 import excpetions.NotEnoughTeamsException;
-import excpetions.TeamIsAlreadyPlayingException;
 import excpetions.ToManyTeamsException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Game {
 

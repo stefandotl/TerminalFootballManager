@@ -1,9 +1,6 @@
 package game;
 
 import excpetions.NotEnoughTeamsException;
-import excpetions.ToManyTeamsException;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class MainTest {
     public static void main(String[] args) throws NotEnoughTeamsException {

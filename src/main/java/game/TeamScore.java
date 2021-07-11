@@ -1,9 +1,14 @@
 package game;
 
-import java.util.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Arrays;
+import java.util.List;
 
+@Entity
 public class TeamScore{
 
+    @Id
     String name;
     int gamesPlayed;
     int goalsScored;
